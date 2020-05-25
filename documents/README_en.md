@@ -1,8 +1,8 @@
 # Earthquake alert
 
-![flow](asset/chart.dio.png)
+![flow](../asset/chart.dio.png)
 
-🇯🇵| [🇺🇸](documents/README_en.md)
+[🇯🇵](../README.md)| 🇺🇸
 
 ## tl;dr
 
