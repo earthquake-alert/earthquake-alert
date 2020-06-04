@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/nim,vim,macos,python,windows,sublimetext,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=nim,vim,macos,python,windows,sublimetext,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/nim,vim,macos,python,windows,sublimetext,visualstudiocode,venv
+# Edit at https://www.toptal.com/developers/gitignore?templates=nim,vim,macos,python,windows,sublimetext,visualstudiocode,venv
 
 ### macOS ###
 # General
@@ -90,6 +90,15 @@ coverage.xml
 *.mo
 *.pot
 
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
 # Scrapy stuff:
 .scrapy
 
@@ -99,13 +108,20 @@ docs/_build/
 # PyBuilder
 target/
 
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
 # pyenv
 .python-version
 
 # pipenv
 #   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
 #   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   having no cross-platform support, pipenv may install dependencies that don’t work, or not
 #   install all needed dependencies.
 #Pipfile.lock
 
@@ -115,17 +131,21 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
 # Spyder project settings
 .spyderproject
 .spyproject
 
 # Rope project settings
 .ropeproject
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
 
 # mkdocs documentation
 /site
@@ -170,6 +190,18 @@ bh_unicode_properties.cache
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
 
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+pip-selfcheck.json
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
@@ -180,24 +212,17 @@ GitHub.sublime-settings
 
 # Session
 Session.vim
-Sessionx.vim
 
 # Temporary
 .netrwhist
 *~
-
 # Auto-generated tag files
 tags
-
 # Persistent undo
 [._]*.un~
 
-# Coc configuration directory
-.vim
-
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -209,7 +234,6 @@ tags
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
-Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
 
@@ -232,4 +256,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/nim,vim,macos,python,windows,sublimetext,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/nim,vim,macos,python,windows,sublimetext,visualstudiocode,venv
