@@ -93,7 +93,7 @@ def test_create_image_raise(expectation, change, element):
     if change == 'title':
         title = element
     elif change == 'areas':
-        areas == element
+        areas = element
     elif change == 'explanation':
         explanation = element
     elif change == 'max_seismic_intensity':
