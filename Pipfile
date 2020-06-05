@@ -4,8 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+flake8 = "*"
+mypy = "*"
+pylint = "*"
+pytest = "*"
+tox = "*"
 
 [packages]
+selenium = "*"
+flask = "*"
+jinja2 = "*"
+chromedriver-binary = "==83.0.4103.39.0"
+requests = "*"
+schedule = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.6"
