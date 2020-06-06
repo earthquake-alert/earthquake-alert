@@ -1,0 +1,18 @@
+[
+    {
+        "title": "震源・震度に関する情報",
+        "max_seismic_intensity": "6強",
+        "explanation": [
+            "１４日０８時４３分ころ、地震がありました。",
+            "この地震による津波の心配はありません。",
+            "この地震について、緊急地震速報を発表しています。"
+        ],
+        "epicenter": "岩手県内陸南部",
+        "areas": [
+            "宮城県",
+            "岩手県"
+        ],
+        "template_path": "src/cache/20200607011038/template_0.png",
+        "map_path": "src/cache/20200607011038/map_0.png"
+    }
+]
