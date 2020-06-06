@@ -4,34 +4,50 @@
 
 Copyright (c) 2020 Earthquake alert
 '''
+import datetime
+import os
 import sqlite3
-from typing import Any
+from typing import Any, Dict, List
+from image_generation import create_image
 
 # Too many arguments is specifications
 # pylint: disable=R0913
 
 
-def convert(earthquakes: Any, db_file_path: str) -> None:
+def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_path: str) -> List[Dict[str, Any]]:
     '''
     The JMA seismic intensity area code is divided into two pieces of data,
     area name and latitude/longitude, and the map path is drawn using them,
     the template is applied, and the file path is attached and returned.
 
     Args:
-        earthquakes (Any): Formatted Json data obtained from the Japan Meteorological Agency.
-                           example: design/sample_data/get_earthquake.json
+        earthquakes (List[Dict[str, Any]]): Formatted Json data obtained from the Japan Meteorological Agency.
+                                            example: design/sample_data/get_earthquake.json
         db_file_path (str): Region code database file path,
+        image_file_path(str): directory of save image.
+
+    Returns:
+        List[Dict[str, Any]]: Data that contains the information to send and the image path.
     '''
-    converted_earthquakes = earthquakes
+    now = datetime.datetime.now()
+    converted = []
+
+    image_dir = os.path.join(image_file_path, now.strftime(r'%Y%m%d%H%M%S'))
+    if not os.path.isdir(image_dir):
+        os.makedirs(image_dir)
 
     conn = sqlite3.connect(db_file_path)
     table = conn.cursor()
 
     for key, element in enumerate(earthquakes):
+        map_file_path = os.path.join(image_dir, f'map_{key}.png')
+        template_file_path = os.path.join(image_dir, f'template_{key}.png')
+
         max_seismic_intensity_locations = [element['epicenter']['lat'], element['epicenter']['lon']]
 
         converted_areas = {}
         si_location = {}
+        prefectures = set()
 
         for seismic_intensity in element['areas']:
             locations = []
@@ -39,11 +55,9 @@ def convert(earthquakes: Any, db_file_path: str) -> None:
 
             for code in element['areas'][seismic_intensity]:
                 for colum in table.execute(f"SELECT * FROM areas WHERE code='{code}'"):
-                    location = [colum[5], colum[4]]
-                    name = colum[2]
-
-                    names.append(name)
-                    locations.append(location)
+                    names.append(colum[2])
+                    locations.append([colum[5], colum[4]])
+                    prefectures.add(colum[1])
 
             converted_areas[seismic_intensity] = names
             si_location[change_seismic_intensity(seismic_intensity)] = locations
@@ -53,8 +67,32 @@ def convert(earthquakes: Any, db_file_path: str) -> None:
             'areas': si_location
         }
 
-        converted_earthquakes[key]['areas'] = converted_areas
+        create_image(
+            save_file_path=template_file_path,
+            title=element['title'],
+            areas=converted_areas,
+            explanation=element['explanation'],
+            max_seismic_intensity=element['max_seismic_intensity'],
+            epicenter=element['epicenter']['name'],
+            magnitude=element['magnitude']
+        )
+
+        converted.append(
+            {
+                'title': element['title'],
+                'max_seismic_intensity': element['max_seismic_intensity'],
+                'explanation': element['explanation'],
+                'epicenter': element['epicenter']['name'],
+                'areas': list(prefectures),
+                'image_path': '',
+                'map_path': ''
+            }
+        )
+
+        print(converted_areas)
         print(converted_location)
+
+    return converted
 
 
 def change_seismic_intensity(seismic_intensity: str) -> str:
