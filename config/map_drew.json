@@ -1,0 +1,42 @@
+{
+    "width": 1920,
+    "height": 1080,
+    "scale": 10000,
+    "sea_color": "#1a1a1a",
+    "land_color": "#595959",
+    "stroke_color": "#ffffff",
+    "map": "src/external/map-draw/japan_geojson/land/japan.geojson",
+    "seismic_intensity_color": {
+        "0": "#d9d9d9",
+        "1": "#2d1fcc",
+        "2": "#3b93db",
+        "3": "#67e071",
+        "4": "#e2eb38",
+        "under_5": "#e38227",
+        "over_5": "#e38227",
+        "under_6": "#e81c2d",
+        "over_6": "#e81c2d",
+        "7": "#db1d95"
+    },
+    "epicenter": {
+        "color": "#d10026",
+        "size": 25,
+        "stroke_width": 17
+    },
+    "seismic_intensity": {
+        "circle": 20,
+        "fontsize": 40,
+        "font": "Arial",
+        "height": 14,
+        "width": 0
+    },
+    "copyright": {
+        "text": [
+            "Copyright (c) 2020 Earthquake alert",
+            "Map data: GSI website(https://www.gsi.go.jp/kankyochiri/gm_jpn.html)"
+        ],
+        "size": 20,
+        "color": "#c9c9c9",
+        "font": "Arial"
+    }
+}

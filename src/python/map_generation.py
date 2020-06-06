@@ -24,14 +24,18 @@ def create_map(areas: Any, image_file_path: str):
     '''
     run_file_path = os.path.join('src', 'external', 'map-draw', 'src', 'mapping.js')
     convert_file_path = os.path.join('src', 'external', 'map-draw', 'src', 'convert.js')
+    config_file_path = os.path.join('config', 'map_drew.json')
 
-    svg_file_path = os.path.join('src', 'cache', 'map.svg')
-    json_file_path = os.path.join('src', 'cache', 'mapping.json')
+    cache_dir = os.path.dirname(image_file_path)
+    svg_file_path = os.path.join(cache_dir, 'map.svg')
+    json_file_path = os.path.join(cache_dir, 'mapping.json')
 
     json_write(json_file_path, areas)
 
-    run_command = ['node', run_file_path, '-i', json_file_path, '-o', svg_file_path]
+    run_command = ['node', run_file_path, '-i', json_file_path, '-o', svg_file_path, '-c', config_file_path]
     convert_command = ['node', convert_file_path, '-i', svg_file_path, '-o', image_file_path]
 
     subprocess.run(run_command, check=True)
     subprocess.run(convert_command, check=True)
+
+    os.remove(svg_file_path)
