@@ -8,10 +8,17 @@ import datetime
 import os
 import sqlite3
 from typing import Any, Dict, List
-from image_generation import create_image
 
-# Too many arguments is specifications
+try:
+    from image_generation import create_image
+    from map_generation import create_map
+except ModuleNotFoundError:
+    from src.python.image_generation import create_image
+    from src.python.map_generation import create_map
+
+# Too many arguments and variables is specifications
 # pylint: disable=R0913
+# pylint: disable=R0914
 
 
 def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_path: str) -> List[Dict[str, Any]]:
@@ -76,18 +83,20 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
             epicenter=element['epicenter']['name'],
             magnitude=element['magnitude']
         )
-
-        converted.append(
-            {
-                'title': element['title'],
-                'max_seismic_intensity': element['max_seismic_intensity'],
-                'explanation': element['explanation'],
-                'epicenter': element['epicenter']['name'],
-                'areas': list(prefectures),
-                'image_path': '',
-                'map_path': ''
-            }
+        create_map(
+            areas=converted_location,
+            image_file_path=map_file_path
         )
+
+        converted.append({
+            'title': element['title'],
+            'max_seismic_intensity': element['max_seismic_intensity'],
+            'explanation': element['explanation'],
+            'epicenter': element['epicenter']['name'],
+            'areas': list(prefectures),
+            'template_path': template_file_path,
+            'map_path': map_file_path
+        })
 
         print(converted_areas)
         print(converted_location)

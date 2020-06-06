@@ -8,11 +8,13 @@ from src.python.convert_areas import convert
 
 
 def test_convert():
-    db_filepath = 'src/external/area-code-database/src/areas.db'
+    db_file_path = 'src/external/area-code-database/src/areas.db'
+    image_file_path = 'src/cache'
     earthquake = [
         {
             "title": "test",
             "max_seismic_intensity": "2",
+            "magnitude": 5.0,
             "explanation": [
                 "aaa",
                 "bbb"
@@ -34,4 +36,6 @@ def test_convert():
         }
     ]
 
-    assert convert(earthquake, db_filepath) is None
+    output = convert(earthquake, db_file_path, image_file_path)
+
+    print(output)

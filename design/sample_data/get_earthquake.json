@@ -3,7 +3,7 @@
     {
         "title": "",
         "max_seismic_intensity": "",
-        "magnitude": "",
+        "magnitude": 5.0,
         "explanation": [
             "",
             ""
