@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "command-line-args": "^5.1.1",
+    "convert-svg-to-png": "^0.5.0",
+    "d3": "^5.16.0",
+    "d3-geo": "^1.12.1",
+    "d3-queue": "^3.0.7",
+    "fs": "^0.0.1-security",
+    "jsdom": "^16.2.2",
+    "node-fetch": "^2.6.0",
+    "simplify-geojson": "https://github.com/earthquake-alert/simplify-geojson.git"
+  }
+}

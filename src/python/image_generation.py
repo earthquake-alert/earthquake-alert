@@ -1,5 +1,6 @@
 '''
 @author: Yuto Watanabe
+@version: 1.0.0
 
 Copyright (c) 2020 Earthquake alert
 '''
@@ -48,16 +49,16 @@ def create_image(
 
     if max_seismic_intensity == '':
         max_seismic_intensity = 'No data.'
-    elif max_seismic_intensity in ('-5', '5-', '−５', '５−'):
+    elif max_seismic_intensity in {'-5', '5-', '−５', '５−'}:
         max_seismic_intensity = '5弱'
-    elif max_seismic_intensity in ('+5', '5+', '＋５', '５＋'):
+    elif max_seismic_intensity in {'+5', '5+', '＋５', '５＋'}:
         max_seismic_intensity = '5強'
-    elif max_seismic_intensity in ('-6', '6-', 'ー６', '６ー'):
+    elif max_seismic_intensity in {'-6', '6-', 'ー６', '６ー'}:
         max_seismic_intensity = '6弱'
-    elif max_seismic_intensity in ('+6', '6+', '６＋', '＋６'):
+    elif max_seismic_intensity in {'+6', '6+', '６＋', '＋６'}:
         max_seismic_intensity = '6強'
-    elif max_seismic_intensity not in (
-            '1', '2', '3', '4', '5弱', '5強', '6弱', '6強', '7', '１', '２', '３', '４', '５弱', '５強', '６弱', '６強', '７'):
+    elif max_seismic_intensity not in {
+            '1', '2', '3', '4', '5弱', '5強', '6弱', '6強', '7', '１', '２', '３', '４', '５弱', '５強', '６弱', '６強', '７'}:
         raise TypeError('The seismic intensity is incorrect.')
 
     url = f'http://localhost:5000/template?ti={title}&areas={areas}\

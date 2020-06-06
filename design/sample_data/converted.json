@@ -1,16 +1,18 @@
 // 画像生成後のフィルターに送る最終データ
-{
-    "title": "",
-    "max_seismic_intensity": "",
-    "explanation": [
-        "",
-        ""
-    ],
-    "epicenter": "",
-    "areas": {
-        "都道府県": "震度",
-        "都道府県2": "震度2"
-    },
-    "image_path": "",
-    "map_path": ""
-}
+[
+    {
+        "title": "",
+        "max_seismic_intensity": "",
+        "explanation": [
+            "",
+            ""
+        ],
+        "epicenter": "",
+        "areas": [
+            "都道府県",
+            "都道府県2"
+        ],
+        "template_path": "",
+        "map_path": ""
+    }
+]

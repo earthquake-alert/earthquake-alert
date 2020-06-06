@@ -1,22 +1,29 @@
 // nimで変換後のフォーマット
-{
-    "title": "",
-    "max_seismic_intensity": "",
-    "explanation": [
-        "",
-        ""
-    ],
-    "epicenter": "",
-    "areas": {
-        "震度": [
-            100,
-            100,
-            100
+[
+    {
+        "title": "",
+        "max_seismic_intensity": "",
+        "magnitude": 5.0,
+        "explanation": [
+            "",
+            ""
         ],
-        "震度2": [
-            100,
-            100,
-            100
-        ]
+        "epicenter": {
+            "name": "",
+            "lon": 10,
+            "lat": 10
+        },
+        "areas": {
+            "震度": [
+                100,
+                100,
+                100
+            ],
+            "震度2": [
+                100,
+                100,
+                100
+            ]
+        }
     }
-}
+]
