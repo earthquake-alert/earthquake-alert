@@ -1,5 +1,14 @@
+'''
+@author: Yuto Watanabe
+@version: 1.0.0
+
+Copyright (c) 2020 Earthquake alert
+'''
 import sqlite3
 from typing import Any
+
+# Too many arguments is specifications
+# pylint: disable=R0913
 
 
 def convert(earthquakes: Any, db_file_path: str) -> None:
