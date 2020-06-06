@@ -61,13 +61,14 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
             names = []
 
             for code in element['areas'][seismic_intensity]:
+                map_seismic_intensity, template_seismic_intensity = change_seismic_intensity(seismic_intensity)
                 for colum in table.execute(f"SELECT * FROM areas WHERE code='{code}'"):
                     names.append(colum[2])
                     locations.append([colum[5], colum[4]])
                     prefectures.add(colum[1])
 
-            converted_areas[seismic_intensity] = names
-            si_location[change_seismic_intensity(seismic_intensity)] = locations
+            converted_areas[template_seismic_intensity] = names
+            si_location[map_seismic_intensity] = locations
 
         converted_location = {
             'epicenter': max_seismic_intensity_locations,
@@ -104,7 +105,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
     return converted
 
 
-def change_seismic_intensity(seismic_intensity: str) -> str:
+def change_seismic_intensity(seismic_intensity: str) -> tuple:
     '''
     Converts the seismic intensity display into a format for map display.
 
@@ -112,26 +113,26 @@ def change_seismic_intensity(seismic_intensity: str) -> str:
         seismic_intensity (str): Default seismic intensity display
 
     Returns:
-        str: Display converted for map.
+        tuple: Display converted for map.
     '''
-    formated_seismic_ontensity = '0'
-    if seismic_intensity in ('1', '１', '震度1', '震度１'):
-        formated_seismic_ontensity = '1'
-    elif seismic_intensity in ('2', '２', '震度2', '震度２'):
-        formated_seismic_ontensity = '2'
-    elif seismic_intensity in ('3', '３', '震度3', '震度３'):
-        formated_seismic_ontensity = '3'
-    elif seismic_intensity in ('4', '４', '震度4', '震度４'):
-        formated_seismic_ontensity = '4'
-    elif seismic_intensity in ('5-', '-5', '５-', '-５', '震度5弱', '震度５弱'):
-        formated_seismic_ontensity = '5-'
-    elif seismic_intensity in ('5+', '+5', '５+', '+５', '震度5強', '震度５強'):
-        formated_seismic_ontensity = '5+'
-    elif seismic_intensity in ('6-', '-6', '６-', '-６', '震度6弱', '震度６弱'):
-        formated_seismic_ontensity = '6-'
-    elif seismic_intensity in ('6+', '+6', '６+', '+６', '震度6強', '震度６強'):
-        formated_seismic_ontensity = '6+'
-    elif seismic_intensity in ('7', '７', '震度7', '震度７'):
-        formated_seismic_ontensity = '7'
+    formated_seismic_ontensity = ('0', '震度0')
+    if seismic_intensity in {'1', '１', '震度1', '震度１'}:
+        formated_seismic_ontensity = ('1', '震度1')
+    elif seismic_intensity in {'2', '２', '震度2', '震度２'}:
+        formated_seismic_ontensity = ('2', '震度2')
+    elif seismic_intensity in {'3', '３', '震度3', '震度３'}:
+        formated_seismic_ontensity = ('3', '震度3')
+    elif seismic_intensity in {'4', '４', '震度4', '震度４'}:
+        formated_seismic_ontensity = ('4', '震度4')
+    elif seismic_intensity in {'5-', '-5', '５-', '-５', '震度5弱', '震度５弱'}:
+        formated_seismic_ontensity = ('5-', '震度5弱')
+    elif seismic_intensity in {'5+', '+5', '５+', '+５', '震度5強', '震度５強'}:
+        formated_seismic_ontensity = ('5+', '震度5強')
+    elif seismic_intensity in {'6-', '-6', '６-', '-６', '震度6弱', '震度６弱'}:
+        formated_seismic_ontensity = ('6-', '震度6弱')
+    elif seismic_intensity in {'6+', '+6', '６+', '+６', '震度6強', '震度６強'}:
+        formated_seismic_ontensity = ('6+', '震度6強')
+    elif seismic_intensity in {'7', '７', '震度7', '震度７'}:
+        formated_seismic_ontensity = ('7', '震度7')
 
     return formated_seismic_ontensity
