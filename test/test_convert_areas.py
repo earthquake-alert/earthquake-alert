@@ -4,38 +4,23 @@
 
 Copyright (c) 2020 Earthquake alert
 '''
+import json
+
 from src.python.convert_areas import convert
 
 
 def test_convert():
     db_file_path = 'src/external/area-code-database/src/areas.db'
     image_file_path = 'src/cache'
-    earthquake = [
-        {
-            "title": "test",
-            "max_seismic_intensity": "2",
-            "magnitude": 5.0,
-            "explanation": [
-                "aaa",
-                "bbb"
-            ],
-            "epicenter": {
-                "name": "foo",
-                "lon": 10,
-                "lat": 10
-            },
-            "areas": {
-                "震度1": [
-                    2121035
-                ],
-                "震度2": [
-                    2120321,
-                    2120344
-                ]
-            }
-        }
-    ]
+    earthquake = json_read('test/example/1.json')
 
     output = convert(earthquake, db_file_path, image_file_path)
 
     print(output)
+
+
+def json_read(json_file_path: str):
+    with open(json_file_path, mode='r') as contents:
+        json_body = json.load(contents)
+
+    return json_body

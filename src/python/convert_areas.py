@@ -50,7 +50,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
         map_file_path = os.path.join(image_dir, f'map_{key}.png')
         template_file_path = os.path.join(image_dir, f'template_{key}.png')
 
-        max_seismic_intensity_locations = [element['epicenter']['lat'], element['epicenter']['lon']]
+        max_seismic_intensity_locations = [element['epicenter']['lon'], element['epicenter']['lat']]
 
         converted_areas = {}
         si_location = {}
@@ -67,8 +67,9 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
                     locations.append([colum[5], colum[4]])
                     prefectures.add(colum[1])
 
-            converted_areas[template_seismic_intensity] = names
             si_location[map_seismic_intensity] = locations
+            if template_seismic_intensity in {'震度3', '震度4', '震度5弱', '震度5強', '震度6弱', '震度6強', '震度7'}:
+                converted_areas[template_seismic_intensity] = names
 
         converted_location = {
             'epicenter': max_seismic_intensity_locations,
@@ -125,13 +126,13 @@ def change_seismic_intensity(seismic_intensity: str) -> tuple:
     elif seismic_intensity in {'4', '４', '震度4', '震度４'}:
         formated_seismic_ontensity = ('4', '震度4')
     elif seismic_intensity in {'5-', '-5', '５-', '-５', '震度5弱', '震度５弱'}:
-        formated_seismic_ontensity = ('5-', '震度5弱')
+        formated_seismic_ontensity = ('under_5', '震度5弱')
     elif seismic_intensity in {'5+', '+5', '５+', '+５', '震度5強', '震度５強'}:
-        formated_seismic_ontensity = ('5+', '震度5強')
+        formated_seismic_ontensity = ('over_5', '震度5強')
     elif seismic_intensity in {'6-', '-6', '６-', '-６', '震度6弱', '震度６弱'}:
-        formated_seismic_ontensity = ('6-', '震度6弱')
+        formated_seismic_ontensity = ('under_6', '震度6弱')
     elif seismic_intensity in {'6+', '+6', '６+', '+６', '震度6強', '震度６強'}:
-        formated_seismic_ontensity = ('6+', '震度6強')
+        formated_seismic_ontensity = ('over_6', '震度6強')
     elif seismic_intensity in {'7', '７', '震度7', '震度７'}:
         formated_seismic_ontensity = ('7', '震度7')
 
