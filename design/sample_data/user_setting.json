@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Your name",
+        "platform": "line or discode or slack",
+        "token": "",
+        "seismic_intensity": "",
+        "area": "None or Prefectures",
+        "is_quick_report": true
+    }
+]

@@ -26,7 +26,7 @@ tox
 
 ## Typing
 
-変数の型をわかりやすくするためにTyping(型ヒント)を使用します。
+変数の型をわかりやすくするためにTyping（型ヒント）を使用します。
 
 ```python
 def (earthquake: str, report_number: int) -> str:
