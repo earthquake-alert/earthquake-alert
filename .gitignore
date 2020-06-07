@@ -341,4 +341,6 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/nim,vim,venv,macos,python,windows,sublimetext,visualstudiocode,node
 
-test/test_images
+test/test_images/*.png
+
+src/cache/*
