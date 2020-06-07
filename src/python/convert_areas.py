@@ -5,6 +5,7 @@
 Copyright (c) 2020 Earthquake alert
 '''
 import datetime
+import multiprocessing
 import os
 import sqlite3
 from typing import Any, Dict, List
@@ -75,20 +76,26 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
             'epicenter': max_seismic_intensity_locations,
             'areas': si_location
         }
+        process = multiprocessing.Process(target=create_image, args=(
+            template_file_path,
+            element['title'],
+            converted_areas,
+            element['explanation'],
+            element['max_seismic_intensity'],
+            element['epicenter']['name'],
+            element['magnitude']
+        ))
 
-        create_image(
-            save_file_path=template_file_path,
-            title=element['title'],
-            areas=converted_areas,
-            explanation=element['explanation'],
-            max_seismic_intensity=element['max_seismic_intensity'],
-            epicenter=element['epicenter']['name'],
-            magnitude=element['magnitude']
-        )
-        create_map(
-            areas=converted_location,
-            image_file_path=map_file_path
-        )
+        process_2 = multiprocessing.Process(target=create_map, args=(
+            converted_location,
+            map_file_path
+        ))
+
+        process.start()
+        process_2.start()
+
+        process.join()
+        process_2.join()
 
         converted.append({
             'title': element['title'],
@@ -99,9 +106,6 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
             'template_path': template_file_path,
             'map_path': map_file_path
         })
-
-        print(converted_areas)
-        print(converted_location)
 
     return converted
 

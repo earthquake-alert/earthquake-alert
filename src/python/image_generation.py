@@ -35,6 +35,7 @@ def create_image(
         TypeError: magnitude should be float.
         TypeError: The seismic intensity is incorrect.
     '''
+    print('create template')
     if not os.path.isdir(os.path.dirname(save_file_path)):
         raise FileNotFoundError('No directory found to save.')
     if len(explanation) < 2:
@@ -85,7 +86,3 @@ def captcha(url: str, save_file_path: str) -> None:
     driver.execute_script("document.body.style.zoom='100%'")
     driver.save_screenshot(save_file_path)
     driver.quit()
-
-
-if __name__ == "__main__":
-    captcha('http://localhost:5000/template', 'save.png')

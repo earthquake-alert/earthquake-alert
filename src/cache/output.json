@@ -9,10 +9,10 @@
         ],
         "epicenter": "岩手県内陸南部",
         "areas": [
-            "宮城県",
-            "岩手県"
+            "岩手県",
+            "宮城県"
         ],
-        "template_path": "src/cache/20200607135448/template_0.png",
-        "map_path": "src/cache/20200607135448/map_0.png"
+        "template_path": "src/cache/20200607155558/template_0.png",
+        "map_path": "src/cache/20200607155558/map_0.png"
     }
 ]
