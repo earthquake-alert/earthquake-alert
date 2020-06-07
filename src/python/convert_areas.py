@@ -58,18 +58,18 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
 
         for seismic_intensity in element['areas']:
             locations = []
-            names = []
+            names = set()
 
             for code in element['areas'][seismic_intensity]:
                 map_seismic_intensity, template_seismic_intensity = change_seismic_intensity(seismic_intensity)
                 for colum in table.execute(f"SELECT * FROM areas WHERE code='{code}'"):
-                    names.append(colum[2])
+                    names.add(colum[6])
                     locations.append([colum[5], colum[4]])
                     prefectures.add(colum[1])
 
             si_location[map_seismic_intensity] = locations
             if template_seismic_intensity in {'震度3', '震度4', '震度5弱', '震度5強', '震度6弱', '震度6強', '震度7'}:
-                converted_areas[template_seismic_intensity] = names
+                converted_areas[template_seismic_intensity] = list(names)
 
         converted_location = {
             'epicenter': max_seismic_intensity_locations,
