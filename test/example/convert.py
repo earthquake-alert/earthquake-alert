@@ -15,8 +15,8 @@ def main():
     convert xml to json.
     '''
 
-    json_fp = 'test/example/2.json'
-    xml_fp = '/Users/yuto_w/Downloads/jmaxml_20200525_Samples/32-39_11_05_120615_VXSE53.xml'
+    json_fp = 'test/example/7.json'
+    xml_fp = '/Users/yuto_w/Git/earthquake-alert/test/example/test.xml'
 
     with open(xml_fp) as f:
         text_list = f.readlines()
@@ -39,8 +39,8 @@ def main():
 
     epicenter = {
         'name': xml_root['Report']['Body']['Earthquake']['Hypocenter']['Area']['Name'],
-        'lon': float(_location[0][0]),
-        'lat': float(_location[0][1])
+        'lat': float(_location[0][0]),
+        'lon': float(_location[0][1])
     }
 
     si_7 = set()
@@ -104,17 +104,26 @@ def main():
     else:
         pref(areas)
 
-    areas = {
-        '7': list(si_7),
-        '6+': list(si_over_6),
-        '6-': list(si_under_6),
-        '5+': list(si_over_5),
-        '5-': list(si_under_5),
-        '4': list(si_4),
-        '3': list(si_3),
-        '2': list(si_2),
-        '1': list(si_1)
-    }
+    areas = {}
+
+    if len(si_7) != 0:
+        areas['7'] = list(si_7)
+    if len(si_over_6) != 0:
+        areas['6+'] = list(si_over_6)
+    if len(si_under_6) != 0:
+        areas['6-'] = list(si_under_6)
+    if len(si_over_5) != 0:
+        areas['5+'] = list(si_over_5)
+    if len(si_under_5) != 0:
+        areas['5-'] = list(si_under_5)
+    if len(si_4) != 0:
+        areas['4'] = list(si_4)
+    if len(si_3) != 0:
+        areas['3'] = list(si_3)
+    if len(si_2) != 0:
+        areas['2'] = list(si_2)
+    if len(si_1) != 0:
+        areas['1'] = list(si_1)
 
     output = {
         'title': title,
