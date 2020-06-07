@@ -5,7 +5,7 @@
     "sea_color": "#1a1a1a",
     "land_color": "#595959",
     "stroke_color": "#ffffff",
-    "map": "src/external/map-draw/japan_geojson/land/japan.geojson",
+    "map": "japan_geojson/land/japan.geojson",
     "seismic_intensity_color": {
         "0": "#d9d9d9",
         "1": "#2d1fcc",
@@ -24,10 +24,10 @@
         "stroke_width": 17
     },
     "seismic_intensity": {
-        "circle": 20,
-        "fontsize": 40,
+        "circle": 15,
+        "fontsize": 30,
         "font": "Arial",
-        "height": 14,
+        "height": 10,
         "width": 0
     },
     "copyright": {

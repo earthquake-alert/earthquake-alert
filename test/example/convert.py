@@ -15,7 +15,7 @@ def main():
     convert xml to json.
     '''
 
-    json_fp = 'test/example/7.json'
+    json_fp = 'test/example/8.json'
     xml_fp = '/Users/yuto_w/Git/earthquake-alert/test/example/test.xml'
 
     with open(xml_fp) as f:
