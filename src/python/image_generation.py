@@ -32,7 +32,6 @@ def create_image(
     Raises:
         FileNotFoundError: No directory found to save.
         TypeError: There are two elements in the list of argument `explanation`.
-        TypeError: magnitude should be float.
         TypeError: The seismic intensity is incorrect.
     '''
     print('create template')
@@ -40,8 +39,6 @@ def create_image(
         raise FileNotFoundError('No directory found to save.')
     if len(explanation) < 2:
         raise TypeError('At least two description elements are required.')
-    if not isinstance(magnitude, float):
-        raise TypeError('magnitude should be float.')
 
     if title == '':
         title = 'No data.'

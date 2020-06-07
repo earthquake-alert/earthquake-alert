@@ -11,9 +11,12 @@ from json_operation import json_read
 
 
 def test_convert():
+    '''
+    TEST
+    '''
     db_file_path = 'src/external/area-code-database/src/areas.db'
     image_file_path = 'src/cache'
-    earthquake = json_read('test/example/1.json')
+    earthquake = json_read('test/example/2.json')
 
     output = convert(earthquake, db_file_path, image_file_path)
     print(output)
