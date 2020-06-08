@@ -127,18 +127,18 @@ def delete_directory(directory: str, now: datetime.datetime):
         now (datetime.datetime): The current time.
     '''
     date_directory = glob.glob(os.path.join(directory, '**' + os.sep), recursive=True)
-    delete_directory = set()
+    delete_image_directory = set()
 
     for element in date_directory:
         try:
             date = datetime.datetime.strptime(os.path.basename(element.rstrip(os.sep)), r'%Y%m%d%H%M%S')
             diff_date = now - date
             if diff_date.days > 1:
-                delete_directory.add(element)
+                delete_image_directory.add(element)
         except ValueError:
             pass
 
-    for element in list(delete_directory):
+    for element in list(delete_image_directory):
         shutil.rmtree(element)
 
 
