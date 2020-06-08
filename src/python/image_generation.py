@@ -16,7 +16,7 @@ from selenium import webdriver
 
 def create_image(
         save_file_path: str, title: str, areas: Dict[str, List[str]], explanation: List[str],
-        max_seismic_intensity: str, epicenter: str, magnitude: float) -> None:
+        max_seismic_intensity: str, epicenter: str, magnitude: str) -> None:
     '''
     Create a image using `pillow`.
 
@@ -27,7 +27,7 @@ def create_image(
         explanation (List[str]): Commentary. (2 or more elements)
         max_seismic_intensity (str): Maximum seismic intensity.
         epicenter (str): Epicenter.
-        magnitude (float): Magnitude.
+        magnitude (str): Magnitude.
 
     Raises:
         FileNotFoundError: No directory found to save.
