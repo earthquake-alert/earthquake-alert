@@ -69,7 +69,11 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
                     prefectures.add(colum[1])
 
             si_location[map_seismic_intensity] = locations
-            if template_seismic_intensity in {'震度3', '震度4', '震度5弱', '震度5強', '震度6弱', '震度6強', '震度7'}:
+            if element['max_seismic_intensity'] not in {
+                    '1', '2', '3', '１', '２', '３', '震度1', '震度2', '震度3', '震度１', '震度２', '震度３'}:
+                if template_seismic_intensity in {'震度3', '震度4', '震度5弱', '震度5強', '震度6弱', '震度6強', '震度7'}:
+                    converted_areas[template_seismic_intensity] = list(names)
+            else:
                 converted_areas[template_seismic_intensity] = list(names)
 
         converted_location = {

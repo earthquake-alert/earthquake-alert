@@ -20,8 +20,10 @@
     },
     "epicenter": {
         "color": "#d10026",
+        "stroke": "#ffffff",
         "size": 25,
-        "stroke_width": 17
+        "stroke_width": 4,
+        "width": 12
     },
     "seismic_intensity": {
         "circle": 15,
