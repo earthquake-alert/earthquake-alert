@@ -5,8 +5,10 @@
 Copyright (c) 2020 Earthquake alert
 '''
 import datetime
+import glob
 import multiprocessing
 import os
+import shutil
 import sqlite3
 from typing import Any, Dict, List
 
@@ -22,7 +24,7 @@ except ModuleNotFoundError:
 # pylint: disable=R0914
 
 
-def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_path: str) -> List[Dict[str, Any]]:
+def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_directory_path: str) -> List[Dict[str, Any]]:
     '''
     The JMA seismic intensity area code is divided into two pieces of data,
     area name and latitude/longitude, and the map path is drawn using them,
@@ -32,7 +34,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
         earthquakes (List[Dict[str, Any]]): Formatted Json data obtained from the Japan Meteorological Agency.
                                             example: design/sample_data/get_earthquake.json
         db_file_path (str): Region code database file path,
-        image_file_path(str): directory of save image.
+        image_directory_path(str): directory of save image.
 
     Returns:
         List[Dict[str, Any]]: Data that contains the information to send and the image path.
@@ -40,7 +42,9 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
     now = datetime.datetime.now()
     converted = []
 
-    image_dir = os.path.join(image_file_path, now.strftime(r'%Y%m%d%H%M%S'))
+    delete_directory(image_directory_path, now)
+
+    image_dir = os.path.join(image_directory_path, now.strftime(r'%Y%m%d%H%M%S'))
     if not os.path.isdir(image_dir):
         os.makedirs(image_dir)
 
@@ -112,6 +116,31 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_file_pat
         })
 
     return converted
+
+
+def delete_directory(directory: str, now: datetime.datetime):
+    '''
+    Delete the directories you added more than a day ago.
+
+    Args:
+        directory (str): The directory to be deleted.
+        now (datetime.datetime): The current time.
+    '''
+    date_directory = glob.glob(os.path.join(directory, '**' + os.sep), recursive=True)
+    delete_directory = set()
+
+    for element in date_directory:
+        try:
+            date = datetime.datetime.strptime(os.path.basename(element.rstrip(os.sep)), r'%Y%m%d%H%M%S')
+            diff_date = now - date
+            if diff_date.days > 1:
+                delete_directory.add(element)
+        except ValueError:
+            pass
+
+    print(delete_directory)
+    for element in list(delete_directory):
+        shutil.rmtree(element)
 
 
 def change_seismic_intensity(seismic_intensity: str) -> tuple:
