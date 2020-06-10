@@ -25,7 +25,7 @@ def create_map(areas: Any, image_file_path: str):
     print('create map')
     run_file_path = os.path.join('src', 'external', 'map-draw', 'src', 'mapping.js')
     convert_file_path = os.path.join('src', 'external', 'map-draw', 'src', 'convert.js')
-    config_file_path = os.path.join('config', 'map_drew.json')
+    config_file_path = os.path.join('config', 'map_draw.json')
 
     cache_dir = os.path.dirname(image_file_path)
     svg_file_path = os.path.join(cache_dir, 'map.svg')
