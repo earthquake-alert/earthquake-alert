@@ -138,7 +138,7 @@ def delete_directory(directory: str, now: datetime.datetime):
         except ValueError:
             pass
 
-    for element in list(delete_image_directory):
+    for element in delete_image_directory:
         shutil.rmtree(element)
 
 
