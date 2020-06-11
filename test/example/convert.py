@@ -6,16 +6,22 @@ Copyright (c) 2020 Earthquake alert
 '''
 import json
 import re
+import time
 
+import fire
 import xmltodict
 
 
-def main():
+def main(file_num: int):
     '''
     convert xml to json.
-    '''
 
-    json_fp = 'test/example/8.json'
+    Args:
+        file_num (int): file number.
+    '''
+    start = time.time()
+
+    json_fp = f'test/example/{file_num}.json'
     xml_fp = '/Users/yuto_w/Git/earthquake-alert/test/example/test.xml'
 
     with open(xml_fp) as f:
@@ -137,6 +143,9 @@ def main():
     with open(json_fp, mode='w') as contents:
         json.dump([output], contents, indent=4, ensure_ascii=False)
 
+    print(f'Time: {time.time() - start}')
+
 
 if __name__ == "__main__":
-    main()
+
+    fire.Fire(main)
