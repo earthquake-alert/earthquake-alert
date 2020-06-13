@@ -41,11 +41,13 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
     now = datetime.datetime.now()
     converted = []
 
-    delete_directory(image_directory_path, now)
-
     image_dir = os.path.join(image_directory_path, now.strftime(r'%Y%m%d%H%M%S'))
     if not os.path.isdir(image_dir):
         os.makedirs(image_dir)
+
+    delete_process = multiprocessing.Process(target=delete_directory,
+                                             args=(image_directory_path, now))
+    delete_process.start()
 
     conn = sqlite3.connect(db_file_path)
     table = conn.cursor()
@@ -113,6 +115,8 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             'template_path': template_file_path,
             'map_path': map_file_path
         })
+
+    delete_process.join()
 
     return converted
 
