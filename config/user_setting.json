@@ -1,0 +1,13 @@
+{
+    "test_2": {
+        "platform": 3,
+        "token": "https://discordapp.com/api/webhooks/721372261961039904/8_E7xG6aBArIsG4gt8q7NH9kg6ujASHxsIwbasaSeEUj1_qdmu_ac9xHs92UImz4Mnwj",
+        "seismic_intensity": "0",
+        "areas": [
+            "北海道",
+            "青森県",
+            "茨城県"
+        ],
+        "is_quick_report": true
+    }
+}

@@ -113,7 +113,8 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             'epicenter': element['epicenter']['name'],
             'areas': list(prefectures),
             'template_path': template_file_path,
-            'map_path': map_file_path
+            'map_path': map_file_path,
+            'type': 1
         })
 
     delete_process.join()

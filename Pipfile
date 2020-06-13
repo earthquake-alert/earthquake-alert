@@ -19,6 +19,7 @@ requests = "*"
 schedule = "*"
 fire = "*"
 xmltodict = "*"
+discord-webhook = "*"
 
 [requires]
 python_version = "3.6"
