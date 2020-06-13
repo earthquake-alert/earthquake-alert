@@ -5,7 +5,7 @@
     "sea_color": "#1a1a1a",
     "land_color": "#595959",
     "stroke_color": "#ffffff",
-    "map": "src/external/map-draw/japan_geojson/land/japan.geojson",
+    "map": "src/external/map-draw/japan_geojson/japan.geojson",
     "seismic_intensity_color": {
         "0": "#d9d9d9",
         "1": "#2d1fcc",
