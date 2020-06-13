@@ -7,7 +7,7 @@ Copyright (c) 2020 Earthquake alert
 import os
 
 import pytest
-from src.python.image_generation import create_image
+from src.image_generation import create_image
 
 DIRECTORY = os.path.join(os.path.dirname(__file__), 'test_images')
 if not os.path.isdir(DIRECTORY):

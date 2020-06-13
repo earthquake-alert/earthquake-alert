@@ -7,7 +7,7 @@ Copyright (c) 2020 Earthquake alert
 import json
 import os
 
-from src.python.convert_areas import convert
+from src.convert_areas import convert
 
 
 def test_convert():

@@ -20,7 +20,6 @@ except ModuleNotFoundError:
     from src.map_generation import create_map
 
 # Too many arguments and variables is specifications
-# pylint: disable=R0913
 # pylint: disable=R0914
 
 
