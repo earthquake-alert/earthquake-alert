@@ -16,8 +16,8 @@ try:
     from image_generation import create_image
     from map_generation import create_map
 except ModuleNotFoundError:
-    from src.python.image_generation import create_image
-    from src.python.map_generation import create_map
+    from src.image_generation import create_image
+    from src.map_generation import create_map
 
 # Too many arguments and variables is specifications
 # pylint: disable=R0913

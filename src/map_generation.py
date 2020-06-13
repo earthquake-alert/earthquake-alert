@@ -11,7 +11,7 @@ from typing import Any
 try:
     from json_operation import json_write
 except ModuleNotFoundError:
-    from src.python.json_operation import json_write
+    from src.json_operation import json_write
 
 
 def create_map(areas: Any, image_file_path: str):
