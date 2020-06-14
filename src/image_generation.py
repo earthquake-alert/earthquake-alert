@@ -34,7 +34,6 @@ def create_image(
         TypeError: There are two elements in the list of argument `explanation`.
         TypeError: The seismic intensity is incorrect.
     '''
-    print('create template')
     if not os.path.isdir(os.path.dirname(save_file_path)):
         raise FileNotFoundError('No directory found to save.')
     if len(explanation) < 2:
@@ -61,6 +60,51 @@ def create_image(
 
     url = f'http://localhost:5000/template?ti={title}&areas={areas}\
 &exp={explanation}&max_si={max_seismic_intensity}&epi={epicenter}&mag={magnitude}'
+
+    captcha(url, save_file_path)
+
+
+def create_image_report(save_file_path: str, title: str, areas: Dict[str, List[str]], explanation: List[str],
+                        max_seismic_intensity: str) -> None:
+    '''
+    Create a image using `pillow`.
+    For seismic intensity flash report
+
+    Args:
+        save_file_path (str): The path of the image to save.
+        title (str): title.
+        areas (Dict[str, List[str]]): Observation area.
+        explanation (List[str]): Commentary. (2 or more elements)
+        max_seismic_intensity (str): Maximum seismic intensity.
+
+    Raises:
+        FileNotFoundError: No directory found to save.
+        TypeError: There are two elements in the list of argument `explanation`.
+        TypeError: The seismic intensity is incorrect.
+    '''
+    if not os.path.isdir(os.path.dirname(save_file_path)):
+        raise FileNotFoundError('No directory found to save.')
+    if len(explanation) < 2:
+        raise TypeError('At least two description elements are required.')
+
+    if title == '':
+        title = 'No data.'
+
+    if max_seismic_intensity == '':
+        max_seismic_intensity = 'No data.'
+    elif max_seismic_intensity in {'-5', '5-', '−５', '５−'}:
+        max_seismic_intensity = '5弱'
+    elif max_seismic_intensity in {'+5', '5+', '＋５', '５＋'}:
+        max_seismic_intensity = '5強'
+    elif max_seismic_intensity in {'-6', '6-', 'ー６', '６ー'}:
+        max_seismic_intensity = '6弱'
+    elif max_seismic_intensity in {'+6', '6+', '６＋', '＋６'}:
+        max_seismic_intensity = '6強'
+    elif max_seismic_intensity not in {
+            '1', '2', '3', '4', '5弱', '5強', '6弱', '6強', '7', '１', '２', '３', '４', '５弱', '５強', '６弱', '６強', '７'}:
+        raise TypeError('The seismic intensity is incorrect.')
+
+    url = f'http://localhost:5000/report?ti={title}&areas={areas}&exp={explanation}&max_si={max_seismic_intensity}'
 
     captcha(url, save_file_path)
 

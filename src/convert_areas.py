@@ -13,10 +13,10 @@ import sqlite3
 from typing import Any, Dict, List
 
 try:
-    from image_generation import create_image
+    from image_generation import create_image, create_image_report
     from map_generation import create_map
 except ModuleNotFoundError:
-    from src.image_generation import create_image
+    from src.image_generation import create_image, create_image_report
     from src.map_generation import create_map
 
 # Too many variables is specifications
@@ -31,7 +31,6 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
 
     Args:
         earthquakes (List[Dict[str, Any]]): Formatted Json data obtained from the Japan Meteorological Agency.
-                                            example: design/sample_data/get_earthquake.json
         db_file_path (str): Region code database file path,
         image_directory_path(str): directory of save image.
 
@@ -115,6 +114,58 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             'template_path': template_file_path,
             'map_path': map_file_path,
             'type': 1
+        })
+
+    delete_process.join()
+
+    return converted
+
+
+def convert_report(earthquakes: List[Dict[str, Any]], image_directory_path: str) -> List[Dict[str, Any]]:
+    '''
+    Apply the template. For seismic intensity flash report.
+
+    Args:
+        earthquakes (List[Dict[str, Any]]): Formatted Json data obtained from the Japan Meteorological Agency.
+        image_directory_path (str): directory of save image.
+
+    Returns:
+        List[Dict[str, Any]]: Data that contains the information to send and the image path.
+    '''
+    now = datetime.datetime.now()
+    converted = []
+
+    image_dir = os.path.join(image_directory_path, now.strftime(r'%Y%m%d%H%M%S'))
+    if not os.path.isdir(image_dir):
+        os.makedirs(image_dir)
+
+    delete_process = multiprocessing.Process(target=delete_directory,
+                                             args=(image_directory_path, now))
+    delete_process.start()
+
+    for key, element in enumerate(earthquakes):
+        template_file_path = os.path.join(image_dir, f'template_report_{key}.png')
+        prefectures = set()
+
+        for areas in element['areas']:
+            for area in element['areas'][areas]:
+                prefectures.add(area)
+
+        create_image_report(
+            template_file_path,
+            element['title'],
+            element['areas'],
+            element['explanation'],
+            element['max_seismic_intensity'],
+        )
+
+        converted.append({
+            'title': element['title'],
+            'max_seismic_intensity': element['max_seismic_intensity'],
+            'explanation': element['explanation'],
+            'areas': list(prefectures),
+            'template_path': template_file_path,
+            'type': 2
         })
 
     delete_process.join()
