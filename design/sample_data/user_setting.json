@@ -1,10 +1,10 @@
-[
-    {
-        "name": "Your name",
-        "platform": "line or discode or slack",
-        "token": "",
-        "seismic_intensity": "",
-        "area": "None or Prefectures",
-        "is_quick_report": true
+{
+    "Your account name": {
+        "platform": 1, // line==1, slack==2, discode==3
+        "token": "", // token or webhook url
+        "channel": "", // slackのみ
+        "seismic_intensity": "", //送信する最大震度 0の場合すべてを送信
+        "areas": [], // 送信する対象地域 何もない場合すべてを送信
+        "is_quick_report": true // 緊急速報を送信するか
     }
-]
+}

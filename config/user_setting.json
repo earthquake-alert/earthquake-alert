@@ -1,0 +1,9 @@
+{
+    "test_1": {
+        "platform": 3,
+        "token": "",
+        "seismic_intensity": "3",
+        "areas": [],
+        "is_quick_report": true
+    }
+}

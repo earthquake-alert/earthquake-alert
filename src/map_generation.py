@@ -14,7 +14,7 @@ except ModuleNotFoundError:
     from src.json_operation import json_write
 
 
-def create_map(areas: Any, image_file_path: str):
+def create_map(areas: Any, image_file_path: str) -> None:
     '''
     Call the js script and create a seismic intensity distribution map using node.
 
@@ -22,7 +22,6 @@ def create_map(areas: Any, image_file_path: str):
         areas (Any): Data used for seismic intensity map.
         image_file_path (str): The path of the generated image.
     '''
-    print('create map')
     run_file_path = os.path.join('src', 'external', 'map-draw', 'src', 'mapping.js')
     convert_file_path = os.path.join('src', 'external', 'map-draw', 'src', 'convert.js')
     config_file_path = os.path.join('config', 'map_draw.json')

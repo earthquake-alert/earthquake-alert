@@ -19,7 +19,7 @@ except ModuleNotFoundError:
     from src.image_generation import create_image
     from src.map_generation import create_map
 
-# Too many arguments and variables is specifications
+# Too many variables is specifications
 # pylint: disable=R0914
 
 
@@ -113,7 +113,8 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             'epicenter': element['epicenter']['name'],
             'areas': list(prefectures),
             'template_path': template_file_path,
-            'map_path': map_file_path
+            'map_path': map_file_path,
+            'type': 1
         })
 
     delete_process.join()
@@ -121,7 +122,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
     return converted
 
 
-def delete_directory(directory: str, now: datetime.datetime):
+def delete_directory(directory: str, now: datetime.datetime) -> None:
     '''
     Delete the directories you added more than a day ago.
 
