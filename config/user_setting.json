@@ -1,13 +1,9 @@
 {
-    "test_2": {
+    "test_1": {
         "platform": 3,
         "token": "",
-        "seismic_intensity": "0",
-        "areas": [
-            "北海道",
-            "青森県",
-            "茨城県"
-        ],
+        "seismic_intensity": "3",
+        "areas": [],
         "is_quick_report": true
     }
 }

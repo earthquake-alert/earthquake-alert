@@ -12,7 +12,7 @@ import requests
 from discord_webhook import DiscordWebhook
 
 
-def line(token: str, text: str, image_path: Optional[str]):
+def line(token: str, text: str, image_path: Optional[str]) -> None:
     '''
     Send information to LINE notify.
     If there is an image path, it will be sent with the image.
@@ -32,7 +32,7 @@ def line(token: str, text: str, image_path: Optional[str]):
     requests.post(line_access_url, headers=headers, params=payload, files=files)
 
 
-def slack(token: str, channel: str, text: str, image_path: Optional[str]):
+def slack(token: str, channel: str, text: str, image_path: Optional[str]) -> None:
     '''
     Send information to slack.
     If there is an image path, it will be sent with the image.
@@ -62,7 +62,7 @@ def slack(token: str, channel: str, text: str, image_path: Optional[str]):
     requests.post(url=slack_access_url, params=param, files=files)
 
 
-def discode(token: str, text: str, image_path: Optional[str]):
+def discode(token: str, text: str, image_path: Optional[str]) -> None:
     '''
     Send information to discode.
     If there is an image path, it will be sent with the image.

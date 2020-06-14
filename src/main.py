@@ -8,6 +8,7 @@ import time
 
 from convert_areas import convert
 from json_operation import json_read
+from filter import Filter
 
 
 def test_convert():
@@ -15,11 +16,12 @@ def test_convert():
     TEST
     '''
     db_file_path = 'src/external/area-code-database/src/areas.db'
-    image_file_path = 'src/cache'
-    earthquake = json_read('test/example/10.json')
+    image_file_path = 'src/cache/images'
+    earthquake = json_read('test/example/8.json')
+    push = Filter('config/user_setting.json', 'src/cache')
 
     output = convert(earthquake, db_file_path, image_file_path)
-    print(output)
+    push.post_type_1(output)
 
 
 if __name__ == "__main__":
