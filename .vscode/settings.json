@@ -1,3 +1,14 @@
 {
-    "python.pythonPath": "/Users/yuto_w/.pyenv/versions/3.6.9/bin/python"
+    "python.formatting.autopep8Args": [
+        "--max-line-length=120"
+    ],
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=\"E111\""
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": true,
+    "editor.minimap.showSlider": "always",
+    "python.pythonPath": "/Users/yuto_w/.pyenv/versions/3.6.10/bin/python"
 }
