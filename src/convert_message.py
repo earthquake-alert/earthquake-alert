@@ -4,10 +4,17 @@
 
 Copyright (c) 2020 Earthquake alert
 '''
+import datetime
+import os
 from typing import Any, List
 
 import requests
 import xmltodict
+
+try:
+    from json_operation import json_write, json_read
+except ModuleNotFoundError:
+    from src.json_operation import json_write, json_read
 
 # Too many variables, branches and statements is specifications
 # pylint: disable=R0914
@@ -45,12 +52,45 @@ def convert_xml_infomation(links: List[str]) -> List[Any]:
     return output
 
 
+def convert_xml_report(links: List[str], cache_dir: str) -> List[Any]:
+    '''
+    XML data of "Seismic intensity bulletin" is acquired from the link and converted and extracted.
+
+    Args:
+        links (List[str]): A link with XML data of Seismic intensity bulletin.
+        cache_dir (str): A directory for cache file.
+
+    Returns:
+        List[Any]: Formatted and extracted elements.
+    '''
+    output = []
+    cache_file_path = os.path.join(cache_dir, 'repot_duplication.json')
+
+    for link in links:
+        try:
+            xml = requests.get(link)
+        except requests.exceptions.ConnectionError:
+            continue
+
+        xml.encoding = 'UTF-8'
+
+        try:
+            earthquake = xmltodict.parse(xml.text)
+        except xmltodict.expat.ExpartError:
+            continue
+
+        output.append(convert_report(earthquake, cache_file_path))
+
+    return output
+
+
 def convert_infomation(earthquake: Any) -> Any:
     '''
     Extract the XML of "information about epicenter and seismic intensity" to json.
 
     Args:
         earthquake (Any): XML data.
+
     Returns:
         Any: The extracted data.
     '''
@@ -190,3 +230,119 @@ def convert_infomation(earthquake: Any) -> Any:
     })
 
     return output
+
+
+def convert_report(earthquake: Any, cache_file_path: str) -> Any:
+    '''
+    Extract the XML of "Seismic intensity bulletin" to json.
+
+    Args:
+        earthquake (Any): XML data.
+        cache_file_path (str): cache file path.
+
+    Returns:
+        Any: The extracted data.
+    '''
+    title = earthquake['Report']['Head']['Title']
+    duplication = duplication_report(earthquake['Report']['Head']['EventID'], cache_file_path)
+
+    if duplication != 1:
+        title = f'{title} 第{duplication}報'
+
+    explanation = []
+    explanation.append(earthquake['Report']['Head']['Headline']['Text'])
+    try:
+        explanation.append(earthquake['Report']['Body']['Comments']['ForecastComment']['Text'])
+    except KeyError:
+        pass
+
+    areas = earthquake['Report']['Head']['Headline']['Information']
+    if isinstance(areas, list):
+        information = areas[0]['Item']
+    else:
+        information = areas['Item']
+
+    formated_areas = {}
+    if isinstance(information, list):
+        max_seismic_intensity = information[0]['Kind']['Name']
+        for individual in information:
+            seismic_intensity = individual['Kind']['Name']
+            areas = []
+            if isinstance(individual['Areas']['Area'], list):
+                for area in individual['Areas']['Area']:
+                    areas.append(area['Name'])
+            else:
+                areas.append(individual['Areas']['Area']['Name'])
+            formated_areas[seismic_intensity] = areas
+    else:
+        max_seismic_intensity = information['Kind']['Name']
+        seismic_intensity = information['Kind']['Name']
+        areas = []
+        if isinstance(information['Areas']['Area'], list):
+            for area in information['Areas']['Area']:
+                areas.append(area['Name'])
+        else:
+            areas.append(information['Areas']['Area']['Name'])
+        formated_areas[seismic_intensity] = areas
+
+    output = {
+        'title': title,
+        'max_seismic_intensity': max_seismic_intensity,
+        'explanation': explanation,
+        'areas': formated_areas
+    }
+
+    return output
+
+
+def duplication_report(event_id: str, save_file_path: str) -> int:
+    '''
+    Check out the follow-up to "Seismic Intensity Bulletin".
+
+    Args:
+        event_id (str): Id of the event
+        save_file_path: The path of the cache file to save.
+    Returns:
+        int: What is the report?
+    '''
+    now = datetime.datetime.now()
+
+    if os.path.isfile(save_file_path):
+        previous_data = json_read(save_file_path)
+    else:
+        previous_data = []
+
+    # delete old element
+    if previous_data != []:
+        delete_data = []
+        for index, element in enumerate(previous_data):
+            date = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
+            diff_date = now - date
+            if diff_date.seconds > 3600:
+                delete_data.append(index)
+
+        delete_data.sort(reverse=True)
+        for element in delete_data:
+            del previous_data[element]
+
+    # check report
+    is_existence = False
+    for element in previous_data:
+        if str(event_id) == element['id']:
+            is_existence = True
+            element['report'] += 1
+            report = element['report']
+            element['date'] = now.strftime(r'%Y%m%d%H%M%S')
+            break
+    if not is_existence:
+        report = 1
+        data = {
+            'date': now.strftime(r'%Y%m%d%H%M%S'),
+            'id': str(event_id),
+            'report': report
+        }
+        previous_data.append(data)
+
+    json_write(save_file_path, previous_data)
+
+    return report
