@@ -4,9 +4,9 @@
 
 Copyright (c) 2020 Earthquake alert
 '''
+import multiprocessing
 import os
 import time
-import multiprocessing
 
 try:
     from acquisition import AcquisitionJMA
@@ -21,6 +21,10 @@ except ModuleNotFoundError:
 
 
 def main():
+    '''
+    Perform an earthquake bulletin.
+    By operating multiple processes, you can send data from the Japan Meteorological Agency or NIED.
+    '''
     user_config_path = os.path.join('config', 'user_setting.json')
     cache_dir = os.path.join('src', 'cache')
     if not os.path.isdir(cache_dir):
@@ -34,6 +38,14 @@ def main():
 
 
 def jma(post: Filter, cache_dir: str):
+    '''
+    We will acquire the “seismic intensity report” and “information about the epicenter and seismic intensity”
+    from the Japan Meteorological Agency and send them to various platforms.
+
+    Args:
+        post (Filter): An instance of Filter to send.
+        cache_dir (str): The path to the cache directory.
+    '''
     link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml'
 
     db_file_path = os.path.join('src', 'external', 'area-code-database', 'src', 'areas.db')
@@ -42,7 +54,7 @@ def jma(post: Filter, cache_dir: str):
         os.makedirs(image_cache_dir)
 
     acquisition = AcquisitionJMA(link, cache_dir)
-    while(True):
+    while(True):  # pylint: disable=C0325
         acquisition.check()
 
         if acquisition.is_report:
