@@ -154,7 +154,7 @@ class Filter():
                     jobs.append(process)
                     process.start()
 
-    def post_type_２(self, earthquakes: Any) -> None:
+    def post_type_2(self, earthquakes: Any) -> None:
         '''
         Formatted images are filtered and sent to the platform set in the user config.
 
