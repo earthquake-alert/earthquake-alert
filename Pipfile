@@ -19,6 +19,7 @@ schedule = "*"
 fire = "*"
 xmltodict = "*"
 discord-webhook = "*"
+cairosvg = "*"
 
 [requires]
 python_version = "3.6"

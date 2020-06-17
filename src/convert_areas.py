@@ -31,7 +31,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
 
     Args:
         earthquakes (List[Dict[str, Any]]): Formatted Json data obtained from the Japan Meteorological Agency.
-        db_file_path (str): Region code database file path,
+        db_file_path (str): Region code database file path.
         image_directory_path(str): directory of save image.
 
     Returns:
@@ -121,13 +121,15 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
     return converted
 
 
-def convert_report(earthquakes: List[Dict[str, Any]], image_directory_path: str) -> List[Dict[str, Any]]:
+def convert_report(
+        earthquakes: List[Dict[str, Any]], db_file_path: str, image_directory_path: str) -> List[Dict[str, Any]]:
     '''
     Apply the template. For seismic intensity flash report.
 
     Args:
         earthquakes (List[Dict[str, Any]]): Formatted Json data obtained from the Japan Meteorological Agency.
         image_directory_path (str): directory of save image.
+        db_file_path (str): Region code database file path.
 
     Returns:
         List[Dict[str, Any]]: Data that contains the information to send and the image path.
@@ -143,13 +145,17 @@ def convert_report(earthquakes: List[Dict[str, Any]], image_directory_path: str)
                                              args=(image_directory_path, now))
     delete_process.start()
 
+    conn = sqlite3.connect(db_file_path)
+    table = conn.cursor()
+
     for key, element in enumerate(earthquakes):
         template_file_path = os.path.join(image_dir, f'template_report_{key}.png')
         prefectures = set()
 
         for areas in element['areas']:
             for area in element['areas'][areas]:
-                prefectures.add(area)
+                table.execute(f"SELECT * FROM pref WHERE city='{area}'")
+                prefectures.add(table.fetchall()[0][0])
 
         create_image_report(
             template_file_path,

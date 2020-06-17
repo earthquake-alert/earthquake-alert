@@ -48,7 +48,7 @@ def jma(post: Filter, cache_dir: str):
     '''
     link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml'
 
-    db_file_path = os.path.join('src', 'external', 'area-code-database', 'src', 'areas.db')
+    db_file_path = os.path.join('src', 'external', 'area-code-database', 'databese', 'areas.db')
     image_cache_dir = os.path.join(cache_dir, 'images')
     if not os.path.isdir(image_cache_dir):
         os.makedirs(image_cache_dir)
@@ -59,7 +59,7 @@ def jma(post: Filter, cache_dir: str):
 
         if acquisition.is_report:
             formated_report = convert_xml_report(acquisition.report, cache_dir)
-            after_report = convert_report(formated_report, image_cache_dir)
+            after_report = convert_report(formated_report, db_file_path, image_cache_dir)
             post.post_type_2(after_report)
 
         if acquisition.is_infomation:

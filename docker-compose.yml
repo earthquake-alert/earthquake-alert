@@ -1,19 +1,5 @@
 version:  '3'
 services:
-    selenium-hub:
-        image: selenium/hub
-        container_name: 'selenium-hub'
-        ports:
-          - 4444:4444
-    chrome:
-        image: selenium/node-chrome-debug
-        container_name: 'chrome'
-        links:
-            - selenium-hub:hub
-        ports:
-            - 5900:5900
-        volumes:
-            - /dev/shm:/dev/shm
     template:
         container_name: template
         build:
@@ -30,5 +16,6 @@ services:
         tty: true
         links:
             - template
-            - selenium-hub:hub
+        volumes:
+            - ./config/:/config/
         command: python3 src/main.py
