@@ -54,14 +54,15 @@ def jma(post: Filter, cache_dir: str):
         os.makedirs(image_cache_dir)
 
     acquisition = AcquisitionJMA(link, cache_dir)
-    while(True):  # pylint: disable=C0325
+    while True:  # pylint: disable=C0325
         acquisition.check()
 
         if acquisition.is_report:
             formated_report = convert_xml_report(acquisition.report, cache_dir)
             after_report = convert_report(formated_report, image_cache_dir)
             post.post_type_2(after_report)
-        elif acquisition.is_infomation:
+
+        if acquisition.is_infomation:
             formated_imfomation = convert_xml_infomation(acquisition.infomation)
             after_infomation = convert(formated_imfomation, db_file_path, image_cache_dir)
             post.post_type_1(after_infomation)

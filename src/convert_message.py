@@ -287,7 +287,7 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
 
     output = {
         'title': title,
-        'max_seismic_intensity': max_seismic_intensity,
+        'max_seismic_intensity': max_seismic_intensity[2:],
         'explanation': explanation,
         'areas': formated_areas
     }

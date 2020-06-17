@@ -7,8 +7,8 @@ Copyright (c) 2020 Earthquake alert
 import os
 from typing import Dict, List
 
-import chromedriver_binary  # noqa: F401 # pylint: disable=W0611
 from selenium import webdriver
+
 
 # Too many arguments is specifications
 # pylint: disable=R0913
@@ -104,7 +104,7 @@ def create_image_report(save_file_path: str, title: str, areas: Dict[str, List[s
             '1', '2', '3', '4', '5弱', '5強', '6弱', '6強', '7', '１', '２', '３', '４', '５弱', '５強', '６弱', '６強', '７'}:
         raise TypeError('The seismic intensity is incorrect.')
 
-    url = f'http://localhost:5000/report?ti={title}&areas={areas}&exp={explanation}&max_si={max_seismic_intensity}'
+    url = f'http://template:5000/report?ti={title}&areas={areas}&exp={explanation}&max_si={max_seismic_intensity}'
 
     captcha(url, save_file_path)
 
@@ -119,6 +119,7 @@ def captcha(url: str, save_file_path: str) -> None:
     '''
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(options=options)
 
     driver.get(url)
