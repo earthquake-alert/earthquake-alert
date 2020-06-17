@@ -1,3 +1,3 @@
 git submodule update --remote --merge
 
-docker-conpose up -d
+docker-compose up -d

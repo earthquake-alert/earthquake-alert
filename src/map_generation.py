@@ -32,7 +32,7 @@ def create_map(areas: Any, image_file_path: str) -> None:
     json_write(json_file_path, areas)
 
     run_command = ['node', run_file_path, '-i', json_file_path, '-o', svg_file_path, '-c', config_file_path]
-    convert_command = ['rsvg-convert', '-f', 'png', '-b', '#595959', '-o', image_file_path, svg_file_path]
+    convert_command = ['rsvg-convert', '-f', 'png', '-b', '#1a1a1a', '-o', image_file_path, svg_file_path]
 
     subprocess.run(run_command, check=True)      # skipcq: BAN-B603
     subprocess.run(convert_command, check=True)  # skipcq: BAN-B603
