@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM nikolaik/python-nodejs:python3.6-nodejs14
 
 COPY src /src
 COPY config /config
@@ -8,26 +8,21 @@ COPY Pipfile.lock /Pipfile.lock
 COPY package.json /package.json
 COPY yarn.lock /yarn.lock
 
-ENV LC_ALL C.UTF-8
-ENV LANG C.UTF-8
+RUN apt-get update && apt-get install -y unzip
 
-RUN apt update -y && apt upgrade -y
-RUN apt install -y chromium-browser
-RUN apt install -y chromium-chromedriver
-RUN apt install -y curl
-RUN apt-get install -y git
-RUN apt install -y python3.6
-RUN apt install -y python3-pip
+#install google-chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
+    echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable
+RUN apt-get install librsvg2-bin
 
-RUN apt install -y nodejs npm
+#install ChromeDriver
+ADD https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip /opt/chrome/
+RUN cd /opt/chrome/ && \
+    unzip chromedriver_linux64.zip
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update -y && apt-get install -y yarn
-
-RUN npm install -g n
-RUN n latest
-RUN apt purge -y nodejs npm
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/chrome
 
 RUN yarn install
 RUN pip3 install pipenv

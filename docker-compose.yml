@@ -4,8 +4,7 @@ services:
         image: selenium/hub
         container_name: 'selenium-hub'
         ports:
-            - 4444:4444
-
+          - 4444:4444
     chrome:
         image: selenium/node-chrome-debug
         container_name: 'chrome'
@@ -15,20 +14,21 @@ services:
             - 5900:5900
         volumes:
             - /dev/shm:/dev/shm
-
     template:
         container_name: template
-        build: template-conversion
+        build:
+            context: template-conversion
+            dockerfile: Dockerfile
         ports:
-            - '127.0.0.1:5000:5000'
+            - '5000:5000'
         tty: true
         command: python3 src/main.py
 
     main:
         container_name: main
         build: .
-        links:
-            - selenium-hub:hub
-            - template
         tty: true
+        links:
+            - template
+            - selenium-hub:hub
         command: python3 src/main.py
