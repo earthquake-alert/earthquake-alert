@@ -78,7 +78,7 @@ class Filter():
 
                 is_quick_report = new_users[user_name]['is_quick_report']
 
-                text = f'[設定を追加しました]\n- 送信する最低震度: {seismic_intensity}\n- 送信する地域: {areas}\n- 緊急速報の送信: {is_quick_report}'
+                text = f'[設定を追加しました]\n(´-ω-｀)\n- 送信する最低震度: {seismic_intensity}\n- 送信する地域: {areas}\n- 緊急速報の送信: {is_quick_report}'
 
             elif new_users[user_name]['seismic_intensity'] != self.users[user_name]['seismic_intensity']:
                 # changed seismic intensity
@@ -88,7 +88,7 @@ class Filter():
                 seismic_intensity = new_users[user_name]['seismic_intensity']
                 if seismic_intensity == '0':
                     seismic_intensity = 'All'
-                text = f'[設定を変更しました]\n- 送信する最低震度: {seismic_intensity}'
+                text = f'[設定を変更しました]\n(´-ω-｀)\n- 送信する最低震度: {seismic_intensity}'
 
             elif new_users[user_name]['areas'] != self.users[user_name]['areas']:
                 # changed areas
@@ -99,7 +99,7 @@ class Filter():
                     areas = 'All'
                 else:
                     areas = '、'.join(new_users[user_name]['areas'])
-                text = f'[設定を変更しました]\n- 送信する地域: {areas}'
+                text = f'[設定を変更しました]\n(´-ω-｀)\n- 送信する地域: {areas}'
 
             elif new_users[user_name]['is_quick_report'] != self.users[user_name]['is_quick_report']:
                 # changed quick report
@@ -107,7 +107,7 @@ class Filter():
 
                 token = new_users[user_name]['token']
                 is_quick_report = new_users[user_name]['is_quick_report']
-                text = f'[設定を変更しました]\n- 緊急速報の送信: {is_quick_report}'
+                text = f'[設定を変更しました]\n(´-ω-｀)\n- 緊急速報の送信: {is_quick_report}'
 
             else:
                 continue
