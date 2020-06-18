@@ -32,8 +32,11 @@ git clone https://github.com/earthquake-alert/earthquake-alert.git
 [chrome-driver](#-chrome-driverについて)のバージョンを確認して、任意で最新版Chromeに対応したものへ変更してください。
 
 ```bash
+# サブモジュールのアップデート
+sh build/init_submodule.sh
+
 # 動かす
-sh ./start.sh
+docker-compose up -d
 
 # ログの確認
 docker-compose logs -f
