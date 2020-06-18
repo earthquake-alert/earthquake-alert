@@ -58,7 +58,7 @@ def create_image(
             '1', '2', '3', '4', '5弱', '5強', '6弱', '6強', '7', '１', '２', '３', '４', '５弱', '５強', '６弱', '６強', '７'}:
         raise TypeError('The seismic intensity is incorrect.')
 
-    url = f'http://localhost:5000/template?ti={title}&areas={areas}\
+    url = f'http://template:5000/template?ti={title}&areas={areas}\
 &exp={explanation}&max_si={max_seismic_intensity}&epi={epicenter}&mag={magnitude}'
 
     captcha(url, save_file_path)
