@@ -24,6 +24,17 @@ RUN cd /opt/chrome/ && \
 
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/chrome
 
+# install Noto sans CJK jp
+RUN cd /tmp && \
+    mkdir noto && \
+    curl -O -L https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip && \
+    unzip NotoSansCJKjp-hinted.zip -d ./noto && \
+    mkdir -p /usr/share/fonts/noto && \
+    cp ./noto/*.otf /usr/share/fonts/noto/ && \
+    chmod 644 /usr/share/fonts/noto/*.otf && \
+    fc-cache -fv && \
+    rm -rf NotoSansCJKjp-hinted.zip ./noto
+
 RUN yarn install
 RUN pip3 install pipenv
 RUN pipenv install --system --deploy
