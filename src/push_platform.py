@@ -1,15 +1,15 @@
 '''
 @author: Yuto Watanabe
-@version: 1.0.0
+@version: 1.2.0
 
 Copyright (c) 2020 Earthquake alert
 '''
 from typing import Any
 
 try:
-    from transmission import line, slack, discode
+    from transmission import line, slack, discode, tweet
 except ModuleNotFoundError:
-    from src.transmission import line, slack, discode
+    from src.transmission import line, slack, discode, tweet
 
 
 def platform_type_0(user: Any, element: Any) -> None:
@@ -31,6 +31,11 @@ def platform_type_0(user: Any, element: Any) -> None:
         slack(token, channel, text, None)
     elif platform == 3:
         discode(token, text, None)
+    elif platform == 4:
+        consumer_key = user['consumer_key']
+        consumer_secret = user['consumer_secret']
+        token_secret = user['token_secret']
+        tweet(consumer_key, consumer_secret, token, token_secret, text, None)
 
 
 def platform_type_1(user: Any, element: Any) -> None:
@@ -56,6 +61,12 @@ def platform_type_1(user: Any, element: Any) -> None:
     elif platform == 3:
         discode(token, element['explanation'][0], template_path)
         discode(token, '震度分布図', map_path)
+    elif platform == 4:
+        consumer_key = user['consumer_key']
+        consumer_secret = user['consumer_secret']
+        token_secret = user['token_secret']
+        tweet(consumer_key, consumer_secret, token, token_secret,
+              element['explanation'][0], [template_path, map_path])
 
 
 def platform_type_2(user: Any, element: Any):
@@ -77,3 +88,9 @@ def platform_type_2(user: Any, element: Any):
         slack(token, channel, element['explanation'][0], template_path)
     elif platform == 3:
         discode(token, element['explanation'][0], template_path)
+    elif platform == 4:
+        consumer_key = user['consumer_key']
+        consumer_secret = user['consumer_secret']
+        token_secret = user['token_secret']
+        tweet(consumer_key, consumer_secret, token, token_secret,
+              element['explanation'][0], [template_path])
