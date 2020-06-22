@@ -2,7 +2,7 @@
 
 ユーザーは任意で送信するプラットフォームの設定できます。
 
-[config/user_setting.json](config/user_setting.json)
+[config/user_setting.json](../config/user_setting.json)
 
 を変更してください。
 
@@ -35,6 +35,16 @@
         "seismic_intensity": "3",
         "areas": [],
         "is_quick_report": false
+    },
+    "push_twitter": {
+        "platform": 4,
+        "consumer_key": "[consumer key]",
+        "consumer_secret": "[consumer secret]",
+        "token": "[Token]",
+        "token_secret": "[token secret]",
+        "seismic_intensity": "0",
+        "areas": [],
+        "is_quick_report": false
     }
 }
 ```
@@ -55,9 +65,6 @@
     - 1から3の整数を入れてください。
   - `token`
     - アクセストークンまたはWebhookURLを指定してください。
-  - `channel`
-    - **Slackのみです。他で指定しても意味はありません。**
-    - Slackの送信するチャンネルを指定します。
   - `seismic_intensity`
     - 送信する最大震度の最低値を指定します。
     - `1, 2, 3, 4, 5-, 5+, 6-, 6+, 7`で指定してください。
@@ -70,3 +77,15 @@
   - `is_quick_report`
     - 緊急速報を送信します。
     - **現実未実装なため設定しても何も起きません。**
+  - `channel`
+    - **Slackのみです。他で指定しても意味はありません。**
+    - Slackの送信するチャンネルを指定します。
+  - `consumer_key`
+    - **Twitterのみです。他で指定しても意味はありません。**
+    - TwitterAPIのコンシューマキー
+  - `consumer_secret`
+    - **Twitterのみです。他で指定しても意味はありません。**
+    - TwitterAPIのコンシューマシークレットキー
+  - `token_secret`
+    - **Twitterのみです。他で指定しても意味はありません。**
+    - TwitterAPIのシークレットトークン
