@@ -1,6 +1,6 @@
 '''
 @author: Yuto Watanabe
-@version: 1.0.0
+@version: 1.1.0
 
 Copyright (c) 2020 Earthquake alert
 '''
@@ -10,11 +10,11 @@ from typing import Any
 
 try:
     from json_operation import json_write, json_read
-    from transmission import line, slack, discode
+    from transmission import line, slack, discode, tweet
     from push_platform import platform_type_0, platform_type_1, platform_type_2
 except ModuleNotFoundError:
     from src.json_operation import json_write, json_read
-    from src.transmission import line, slack, discode
+    from src.transmission import line, slack, discode, tweet
     from src.push_platform import platform_type_0, platform_type_1, platform_type_2
 
 
@@ -47,8 +47,8 @@ class Filter():
         Set up the user config.
         Any new additions or changes will be sent to your platform.
         '''
-        # Too many branches is specifications
-        # pylint: disable=R0912
+        # Too many branches and statements is specifications
+        # pylint: disable=R0912,R0915
         new_users = json_read(self.user_file_path)
 
         delete_element = set()
@@ -78,7 +78,8 @@ class Filter():
 
                 is_quick_report = new_users[user_name]['is_quick_report']
 
-                text = f'[設定を追加しました]\n(´-ω-｀)\n- 送信する最低震度: {seismic_intensity}\n- 送信する地域: {areas}\n- 緊急速報の送信: {is_quick_report}'
+                text = f'[設定を追加しました]\n(´-ω-｀)\
+\n- 送信する最低震度: {seismic_intensity}\n- 送信する地域: {areas}\n- 緊急速報の送信: {is_quick_report}'
 
             elif new_users[user_name]['seismic_intensity'] != self.users[user_name]['seismic_intensity']:
                 # changed seismic intensity
@@ -120,6 +121,11 @@ class Filter():
                 slack(token, channel, text, None)
             elif platform == 3:
                 discode(token, text, None)
+            elif platform == 4:
+                consumer_key = new_users[user_name]['consumer_key']
+                consumer_secret = new_users[user_name]['consumer_secret']
+                token_secret = new_users[user_name]['token_secret']
+                tweet(consumer_key, consumer_secret, token, token_secret, text, None)
 
         json_write(self.cache_file_path, self.users)
 
