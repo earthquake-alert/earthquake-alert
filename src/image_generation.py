@@ -32,7 +32,6 @@ def create_image(
     Raises:
         FileNotFoundError: No directory found to save.
         TypeError: There are two elements in the list of argument `explanation`.
-        TypeError: The seismic intensity is incorrect.
     '''
     if not os.path.isdir(os.path.dirname(save_file_path)):
         raise FileNotFoundError('No directory found to save.')
@@ -77,7 +76,6 @@ def create_image_report(save_file_path: str, title: str, areas: Dict[str, List[s
     Raises:
         FileNotFoundError: No directory found to save.
         TypeError: There are two elements in the list of argument `explanation`.
-        TypeError: The seismic intensity is incorrect.
     '''
     if not os.path.isdir(os.path.dirname(save_file_path)):
         raise FileNotFoundError('No directory found to save.')
@@ -97,9 +95,6 @@ def create_image_report(save_file_path: str, title: str, areas: Dict[str, List[s
         max_seismic_intensity = '6弱'
     elif max_seismic_intensity in {'+6', '6+', '６＋', '＋６'}:
         max_seismic_intensity = '6強'
-    elif max_seismic_intensity not in {
-            '1', '2', '3', '4', '5弱', '5強', '6弱', '6強', '7', '１', '２', '３', '４', '５弱', '５強', '６弱', '６強', '７'}:
-        raise TypeError('The seismic intensity is incorrect.')
 
     url = f'http://template:5000/report?ti={title}&areas={areas}&exp={explanation}&max_si={max_seismic_intensity}'
 

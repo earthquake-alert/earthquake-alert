@@ -285,9 +285,28 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
             areas.append(information['Areas']['Area']['Name'])
         formated_areas[seismic_intensity] = areas
 
+    if max_seismic_intensity in {'震度1', '震度１'}:
+        formated_seismic_intensity = '1'
+    elif max_seismic_intensity in {'震度2', '震度２'}:
+        formated_seismic_intensity = '2'
+    elif max_seismic_intensity in {'震度3', '震度３'}:
+        formated_seismic_intensity = '3'
+    elif max_seismic_intensity in {'震度4', '震度４'}:
+        formated_seismic_intensity = '4'
+    elif max_seismic_intensity in {'震度5弱', '震度５弱'}:
+        formated_seismic_intensity = '5-'
+    elif max_seismic_intensity in {'震度5強', '震度５強'}:
+        formated_seismic_intensity = '5+'
+    elif max_seismic_intensity in {'震度6弱', '震度６弱'}:
+        formated_seismic_intensity = '6-'
+    elif max_seismic_intensity in {'震度6強', '震度６強'}:
+        formated_seismic_intensity = '6+'
+    elif max_seismic_intensity in {'震度7', '震度7'}:
+        formated_seismic_intensity = '7'
+
     output = {
         'title': title,
-        'max_seismic_intensity': max_seismic_intensity[2:],
+        'max_seismic_intensity': formated_seismic_intensity,
         'explanation': explanation,
         'areas': formated_areas
     }
