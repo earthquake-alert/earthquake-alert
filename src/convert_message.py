@@ -303,6 +303,8 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
         formated_seismic_intensity = '6+'
     elif max_seismic_intensity in {'震度7', '震度7'}:
         formated_seismic_intensity = '7'
+    else:
+        formated_seismic_intensity = '0'
 
     output = {
         'title': title,
@@ -346,6 +348,7 @@ def duplication_report(event_id: str, save_file_path: str) -> int:
 
     # check report
     is_existence = False
+    report = 1
     for element in previous_data:
         if str(event_id) == element['id']:
             is_existence = True

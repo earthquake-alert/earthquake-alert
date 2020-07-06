@@ -10,5 +10,6 @@
     "python.linting.pylintEnabled": false,
     "python.linting.mypyEnabled": true,
     "editor.minimap.showSlider": "always",
-    "python.pythonPath": "/Users/yuto_w/.pyenv/versions/3.6.10/bin/python"
+    "python.pythonPath": "./.pyenv/versions/3.6.10/bin/python",
+    "python.analysis.diagnosticMode": "workspace"
 }

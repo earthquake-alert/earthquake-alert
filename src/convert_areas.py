@@ -64,9 +64,9 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
         for seismic_intensity in element['areas']:
             locations = []
             names = set()
+            map_seismic_intensity, template_seismic_intensity = change_seismic_intensity(seismic_intensity)
 
             for code in element['areas'][seismic_intensity]:
-                map_seismic_intensity, template_seismic_intensity = change_seismic_intensity(seismic_intensity)
                 for colum in table.execute(f"SELECT * FROM areas WHERE code='{code}'"):
                     names.add(colum[6])
                     locations.append([colum[5], colum[4]])

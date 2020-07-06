@@ -9,6 +9,7 @@ mypy = "*"
 pylint = "*"
 pytest = "*"
 tox = "*"
+autopep8 = "*"
 
 [packages]
 selenium = "*"
