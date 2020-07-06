@@ -45,7 +45,7 @@ def convert_xml_infomation(links: List[str]) -> List[Any]:
 
         try:
             earthquake = xmltodict.parse(xml_data.text)
-        except xmltodict.expat.ExpartError or xml.parsers.expat.ExpatError:
+        except (xmltodict.expat.ExpartError, xml.parsers.expat.ExpatError):
             continue
 
         output.append(convert_infomation(earthquake))
@@ -77,7 +77,7 @@ def convert_xml_report(links: List[str], cache_dir: str) -> List[Any]:
 
         try:
             earthquake = xmltodict.parse(xml_data.text)
-        except xmltodict.expat.ExpartError or xml.parsers.expat.ExpatError:
+        except (xmltodict.expat.ExpartError, xml.parsers.expat.ExpatError):
             continue
 
         output.append(convert_report(earthquake, cache_file_path))

@@ -89,7 +89,7 @@ class AcquisitionJMA():
 
             try:
                 text = xmltodict.parse(xml_data)
-            except xmltodict.expat.ExpartError or xml.parsers.expat.ExpatError:
+            except (xmltodict.expat.ExpartError, xml.parsers.expat.ExpatError):
                 return
 
             for element in text['feed']['entry']:
