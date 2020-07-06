@@ -13,8 +13,8 @@ import sqlite3
 from typing import Any, Dict, List
 
 try:
-    from image_generation import create_image, create_image_report
-    from map_generation import create_map
+    from image_generation import create_image, create_image_report  # pyright: reportMissingImports=false
+    from map_generation import create_map  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.image_generation import create_image, create_image_report
     from src.map_generation import create_map

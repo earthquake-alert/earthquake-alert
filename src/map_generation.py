@@ -9,7 +9,7 @@ import subprocess  # skipcq: BAN-B404
 from typing import Any
 
 try:
-    from json_operation import json_write
+    from json_operation import json_write  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.json_operation import json_write
 

@@ -9,10 +9,10 @@ import os
 import time
 
 try:
-    from acquisition import AcquisitionJMA
-    from convert_areas import convert, convert_report
-    from convert_message import convert_xml_report, convert_xml_infomation
-    from filter import Filter
+    from acquisition import AcquisitionJMA  # pyright: reportMissingImports=false
+    from convert_areas import convert, convert_report  # pyright: reportMissingImports=false
+    from convert_message import convert_xml_report, convert_xml_infomation  # pyright: reportMissingImports=false
+    from filter import Filter  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.acquisition import AcquisitionJMA
     from src.convert_areas import convert, convert_report

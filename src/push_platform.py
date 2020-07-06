@@ -7,7 +7,7 @@ Copyright (c) 2020 Earthquake alert
 from typing import Any
 
 try:
-    from transmission import line, slack, discode, tweet
+    from transmission import line, slack, discode, tweet  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.transmission import line, slack, discode, tweet
 

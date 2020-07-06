@@ -9,9 +9,9 @@ import os
 from typing import Any
 
 try:
-    from json_operation import json_write, json_read
-    from transmission import line, slack, discode, tweet
-    from push_platform import platform_type_0, platform_type_1, platform_type_2
+    from json_operation import json_write, json_read  # pyright: reportMissingImports=false
+    from transmission import line, slack, discode, tweet  # pyright: reportMissingImports=false
+    from push_platform import platform_type_0, platform_type_1, platform_type_2  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.json_operation import json_write, json_read
     from src.transmission import line, slack, discode, tweet

@@ -1,7 +1,7 @@
 {
     "sample": {
         "platform": 3,
-        "token": "https://discordapp.com/api/webhooks/723177254183501874/4ykqEnTazwoUSRV7-jXjVAtvufYSVaK7DdwEfJfVxZoy7iEnONeMgWX68ofu96_MqS-i",
+        "token": "",
         "seismic_intensity": "0",
         "areas": [],
         "is_quick_report": true

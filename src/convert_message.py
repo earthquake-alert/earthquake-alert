@@ -6,13 +6,14 @@ Copyright (c) 2020 Earthquake alert
 '''
 import datetime
 import os
+import xml.parsers.expat
 from typing import Any, List
 
 import requests
 import xmltodict
 
 try:
-    from json_operation import json_write, json_read
+    from json_operation import json_write, json_read  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.json_operation import json_write, json_read
 
@@ -36,15 +37,15 @@ def convert_xml_infomation(links: List[str]) -> List[Any]:
 
     for link in links:
         try:
-            xml = requests.get(link)
+            xml_data = requests.get(link)
         except requests.exceptions.ConnectionError:
             continue
 
-        xml.encoding = 'UTF-8'
+        xml_data.encoding = 'UTF-8'
 
         try:
-            earthquake = xmltodict.parse(xml.text)
-        except xmltodict.expat.ExpartError:
+            earthquake = xmltodict.parse(xml_data.text)
+        except xmltodict.expat.ExpartError or xml.parsers.expat.ExpatError:
             continue
 
         output.append(convert_infomation(earthquake))
@@ -68,15 +69,15 @@ def convert_xml_report(links: List[str], cache_dir: str) -> List[Any]:
 
     for link in links:
         try:
-            xml = requests.get(link)
+            xml_data = requests.get(link)
         except requests.exceptions.ConnectionError:
             continue
 
-        xml.encoding = 'UTF-8'
+        xml_data.encoding = 'UTF-8'
 
         try:
-            earthquake = xmltodict.parse(xml.text)
-        except xmltodict.expat.ExpartError:
+            earthquake = xmltodict.parse(xml_data.text)
+        except xmltodict.expat.ExpartError or xml.parsers.expat.ExpatError:
             continue
 
         output.append(convert_report(earthquake, cache_file_path))

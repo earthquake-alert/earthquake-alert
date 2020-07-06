@@ -5,13 +5,14 @@
 Copyright (c) 2020 Earthquake alert
 '''
 import os
+import xml.parsers.expat
 from typing import Any, List
 
 import requests
 import xmltodict
 
 try:
-    from json_operation import json_write, json_read
+    from json_operation import json_write, json_read  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.json_operation import json_write, json_read
 
@@ -84,11 +85,11 @@ class AcquisitionJMA():
             infomation_ids = set(last_acquisition['infomation'])
 
             self.responce.encoding = 'UTF-8'
-            xml = self.responce.text
+            xml_data = self.responce.text
 
             try:
-                text = xmltodict.parse(xml)
-            except xmltodict.expat.ExpartError:
+                text = xmltodict.parse(xml_data)
+            except xmltodict.expat.ExpartError or xml.parsers.expat.ExpatError:
                 return
 
             for element in text['feed']['entry']:
