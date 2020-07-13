@@ -1,6 +1,8 @@
 {
     "width": 1920,
     "height": 1080,
+    "resolution": 0,
+    "stroke_width": 3,
     "scale": 10000,
     "sea_color": "#1a1a1a",
     "land_color": "#595959",
