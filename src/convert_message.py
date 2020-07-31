@@ -219,7 +219,7 @@ def convert_infomation(earthquake: Any) -> Any:
     try:
         max_seismic_intensity = str(earthquake['Report']['Body']['Intensity']['Observation']['MaxInt'])
     except KeyError:
-        max_seismic_intensity = 'NoN'
+        max_seismic_intensity = '不明'
 
     output = ({
         'title': title,

@@ -18,7 +18,7 @@ RUN apt-get install librsvg2-bin
 RUN apt-get install -y vim
 
 #install ChromeDriver
-ADD https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip /opt/chrome/
+ADD https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip /opt/chrome/
 RUN cd /opt/chrome/ && \
     unzip chromedriver_linux64.zip
 
