@@ -105,6 +105,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             ))
             process_2.start()
             process_2.join()
+        else:
             map_file_path = ''
         process.join()
 
