@@ -46,8 +46,8 @@ def jma(post: Filter, cache_dir: str):
         post (Filter): An instance of Filter to send.
         cache_dir (str): The path to the cache directory.
     '''
-    # link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml'
-    link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml'
+    link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml'
+    # link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml'
 
     db_file_path = os.path.join('src', 'external', 'area-code-database', 'databese', 'areas.db')
     image_cache_dir = os.path.join(cache_dir, 'images')

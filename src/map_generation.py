@@ -75,8 +75,8 @@ def captcha(url: str, save_file_path: str) -> None:
     driver = webdriver.Chrome(options=options)
 
     driver.get(url)
-    time.sleep(5)
     driver.set_window_size(1920, 1080)
+    time.sleep(1)
     driver.execute_script("document.body.style.zoom='100%'")
     driver.save_screenshot(save_file_path)
     driver.quit()
