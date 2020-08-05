@@ -2,6 +2,7 @@
 [
     // 震源・震度に関する情報（テンプレートと震度分布図）
     {
+        "text": "",
         "title": "",
         "max_seismic_intensity": "",
         "explanation": [
@@ -16,21 +17,6 @@
         "template_path": "",
         "map_path": "",
         "type": 1
-    },
-    // 震度速報（テンプレートのみ）
-    {
-        "title": "",
-        "max_seismic_intensity": "",
-        "explanation": [
-            "",
-            ""
-        ],
-        "areas": [
-            "都道府県",
-            "都道府県2"
-        ],
-        "template_path": "",
-        "type": 2
     },
     // 文字のみ送信のフォーマット
     {

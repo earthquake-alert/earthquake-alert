@@ -1,9 +1,9 @@
-[submodule "src/external/map-draw"]
-	path = src/external/map-draw
-	url = https://github.com/earthquake-alert/map-draw.git
 [submodule "src/external/area-code-database"]
 	path = src/external/area-code-database
 	url = https://github.com/earthquake-alert/area-code-database.git
 [submodule "src/external/template-conversion"]
 	path = template-conversion
 	url = https://github.com/earthquake-alert/template-conversion.git
+[submodule "earthquake-map"]
+	path = earthquake-map
+	url = https://github.com/earthquake-alert/Earthquake-map.git

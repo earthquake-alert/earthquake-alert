@@ -14,10 +14,10 @@ from typing import Any, Dict, List
 
 try:
     from image_generation import create_image, create_image_report  # pyright: reportMissingImports=false
-    from map_generation import create_map  # pyright: reportMissingImports=false
+    from map_generation import create_map_info, create_map_repo  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.image_generation import create_image, create_image_report
-    from src.map_generation import create_map
+    from src.map_generation import create_map_info, create_map_repo
 
 # Too many variables is specifications
 # pylint: disable=R0914
@@ -55,7 +55,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
         map_file_path = os.path.join(image_dir, f'map_{key}.png')
         template_file_path = os.path.join(image_dir, f'template_{key}.png')
 
-        max_seismic_intensity_locations = [element['epicenter']['lon'], element['epicenter']['lat']]
+        max_seismic_intensity_locations = [element['epicenter']['lat'], element['epicenter']['lon']]
 
         converted_areas = {}
         si_location = {}
@@ -69,7 +69,7 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             for code in element['areas'][seismic_intensity]:
                 for colum in table.execute(f"SELECT * FROM areas WHERE code='{code}'"):
                     names.add(colum[6])
-                    locations.append([colum[5], colum[4]])
+                    locations.append([colum[4], colum[5]])
                     prefectures.add(colum[1])
 
             si_location[map_seismic_intensity] = locations
@@ -93,20 +93,28 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             element['epicenter']['name'],
             element['magnitude']
         ))
-
-        process_2 = multiprocessing.Process(target=create_map, args=(
-            converted_location,
-            map_file_path
-        ))
-
         process.start()
-        process_2.start()
 
+        if not element['is_cancel']:
+            process_2 = multiprocessing.Process(target=create_map_info, args=(
+                converted_location,
+                element['title'],
+                element['date'],
+                map_file_path
+            ))
+            process_2.start()
+            process_2.join()
+            map_file_path = ''
         process.join()
-        process_2.join()
+
+        target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
+        text = f"{target_time.strftime(r'%d日%H時%M分')}ころ{element['epicenter']['name']}を震源とする地震がありました。"
+        text += f"震源の規模を示すマグニチュードは{element['max_seismic_intensity']}と推定されています。"
+        text += element['explanation'][1]
 
         converted.append({
             'title': element['title'],
+            'text': text,
             'max_seismic_intensity': element['max_seismic_intensity'],
             'explanation': element['explanation'],
             'epicenter': element['epicenter']['name'],
@@ -150,6 +158,7 @@ def convert_report(
 
     for key, element in enumerate(earthquakes):
         template_file_path = os.path.join(image_dir, f'template_report_{key}.png')
+        map_file_path = os.path.join(image_dir, f'map_{key}.png')
         prefectures = set()
 
         for areas in element['areas']:
@@ -157,21 +166,40 @@ def convert_report(
                 table.execute(f"SELECT * FROM pref WHERE city='{area}'")
                 prefectures.add(table.fetchall()[0][0])
 
-        create_image_report(
+        process = multiprocessing.Process(target=create_image_report, args=(
             template_file_path,
             element['title'],
             element['areas'],
             element['explanation'],
             element['max_seismic_intensity'],
-        )
+        ))
+        process.start()
+
+        process2 = multiprocessing.Process(target=create_map_repo, args=(
+            element['codes'],
+            element['title'],
+            element['date'],
+            map_file_path,
+        ))
+        process2.start()
+
+        process.join()
+        process2.join()
+
+        target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
+        text = f"{target_time.strftime(r'%d日%H時%M分')}ころ地震がありました。"
+        text += f"最大震度{change_seismic_intensity(element['max_seismic_intensity'])[1]}を観測しています。"
+        text += element['explanation'][1]
 
         converted.append({
             'title': element['title'],
+            'text': text,
             'max_seismic_intensity': element['max_seismic_intensity'],
             'explanation': element['explanation'],
             'areas': list(prefectures),
             'template_path': template_file_path,
-            'type': 2
+            'map_path': map_file_path,
+            'type': 1
         })
 
     delete_process.join()
@@ -223,13 +251,13 @@ def change_seismic_intensity(seismic_intensity: str) -> tuple:
     elif seismic_intensity in {'4', '４', '震度4', '震度４'}:
         formated_seismic_ontensity = ('4', '震度4')
     elif seismic_intensity in {'5-', '-5', '５-', '-５', '震度5弱', '震度５弱'}:
-        formated_seismic_ontensity = ('under_5', '震度5弱')
+        formated_seismic_ontensity = ('5l', '震度5弱')
     elif seismic_intensity in {'5+', '+5', '５+', '+５', '震度5強', '震度５強'}:
-        formated_seismic_ontensity = ('over_5', '震度5強')
+        formated_seismic_ontensity = ('5u', '震度5強')
     elif seismic_intensity in {'6-', '-6', '６-', '-６', '震度6弱', '震度６弱'}:
-        formated_seismic_ontensity = ('under_6', '震度6弱')
+        formated_seismic_ontensity = ('6l', '震度6弱')
     elif seismic_intensity in {'6+', '+6', '６+', '+６', '震度6強', '震度６強'}:
-        formated_seismic_ontensity = ('over_6', '震度6強')
+        formated_seismic_ontensity = ('6u', '震度6強')
     elif seismic_intensity in {'7', '７', '震度7', '震度７'}:
         formated_seismic_ontensity = ('7', '震度7')
 

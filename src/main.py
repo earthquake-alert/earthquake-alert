@@ -47,6 +47,7 @@ def jma(post: Filter, cache_dir: str):
         cache_dir (str): The path to the cache directory.
     '''
     link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml'
+    # link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml'
 
     db_file_path = os.path.join('src', 'external', 'area-code-database', 'databese', 'areas.db')
     image_cache_dir = os.path.join(cache_dir, 'images')
@@ -60,7 +61,7 @@ def jma(post: Filter, cache_dir: str):
         if acquisition.is_report:
             formated_report = convert_xml_report(acquisition.report, cache_dir)
             after_report = convert_report(formated_report, db_file_path, image_cache_dir)
-            post.post_type_2(after_report)
+            post.post_type_1(after_report)
 
         if acquisition.is_infomation:
             formated_imfomation = convert_xml_infomation(acquisition.infomation)

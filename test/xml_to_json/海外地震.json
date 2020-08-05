@@ -1,0 +1,69 @@
+[
+    {
+        "Report": {
+            "@xmlns": "http://xml.kishou.go.jp/jmaxml1/",
+            "@xmlns:jmx": "http://xml.kishou.go.jp/jmaxml1/",
+            "Control": {
+                "Title": "震源・震度に関する情報",
+                "DateTime": "2010-02-27T07:00:44Z",
+                "Status": "通常",
+                "EditorialOffice": "気象庁本庁",
+                "PublishingOffice": "気象庁"
+            },
+            "Head": {
+                "@xmlns": "http://xml.kishou.go.jp/jmaxml1/informationBasis1/",
+                "Title": "遠地地震に関する情報",
+                "ReportDateTime": "2010-02-27T16:00:00+09:00",
+                "TargetDateTime": "2010-02-27T16:00:00+09:00",
+                "EventID": "20100227153529",
+                "InfoType": "発表",
+                "Serial": "1",
+                "InfoKind": "地震情報",
+                "InfoKindVersion": "1.0_0",
+                "Headline": {
+                    "Text": "２７日１５時３４分ころ、海外で規模の大きな地震がありました。"
+                }
+            },
+            "Body": {
+                "@xmlns": "http://xml.kishou.go.jp/jmaxml1/body/seismology1/",
+                "@xmlns:jmx_eb": "http://xml.kishou.go.jp/jmaxml1/elementBasis1/",
+                "Earthquake": {
+                    "OriginTime": "2010-02-27T15:34:00+09:00",
+                    "ArrivalTime": "2010-02-27T15:34:00+09:00",
+                    "Hypocenter": {
+                        "Area": {
+                            "Name": "南米西部",
+                            "Code": {
+                                "@type": "震央地名",
+                                "#text": "946"
+                            },
+                            "jmx_eb:Coordinate": {
+                                "@description": "南緯３６．１度　西経　７２．６度　深さ　６０ｋｍ",
+                                "#text": "-36.1-072.6-60000/"
+                            },
+                            "DetailedName": "チリ中部沿岸",
+                            "DetailedCode": {
+                                "@type": "詳細震央地名",
+                                "#text": "1135"
+                            }
+                        },
+                        "Source": "ＰＴＷＣ"
+                    },
+                    "jmx_eb:Magnitude": {
+                        "@type": "M",
+                        "@description": "Ｍ８．５",
+                        "#text": "8.5"
+                    }
+                },
+                "Comments": {
+                    "ForecastComment": {
+                        "@codeType": "固定付加文",
+                        "Text": "太平洋の広域に津波発生の可能性があります。\n\n一般的に、この規模の地震が海域の浅い領域で発生すると津波が発生することがあります。\n\n日本への津波の有無については現在調査中です。",
+                        "Code": "0221 0228 0229"
+                    },
+                    "FreeFormComment": "ＰＴＷＣでは２７日１５時４６分に津波情報を発表しています。"
+                }
+            }
+        }
+    }
+]

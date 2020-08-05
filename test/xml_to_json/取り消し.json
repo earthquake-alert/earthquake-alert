@@ -1,0 +1,34 @@
+[
+    {
+        "Report": {
+            "@xmlns": "http://xml.kishou.go.jp/jmaxml1/",
+            "@xmlns:jmx": "http://xml.kishou.go.jp/jmaxml1/",
+            "Control": {
+                "Title": "震源・震度に関する情報",
+                "DateTime": "2008-06-14T00:06:34Z",
+                "Status": "通常",
+                "EditorialOffice": "気象庁本庁",
+                "PublishingOffice": "気象庁"
+            },
+            "Head": {
+                "@xmlns": "http://xml.kishou.go.jp/jmaxml1/informationBasis1/",
+                "Title": "震源・震度情報",
+                "ReportDateTime": "2008-06-14T09:06:00+09:00",
+                "TargetDateTime": "2008-06-14T09:06:00+09:00",
+                "EventID": "20080614084350",
+                "InfoType": "取消",
+                "Serial": "3",
+                "InfoKind": "地震情報",
+                "InfoKindVersion": "1.0_0",
+                "Headline": {
+                    "Text": "震源・震度情報を取り消します。"
+                }
+            },
+            "Body": {
+                "@xmlns": "http://xml.kishou.go.jp/jmaxml1/body/seismology1/",
+                "@xmlns:jmx_eb": "http://xml.kishou.go.jp/jmaxml1/elementBasis1/",
+                "Text": "先ほどの、震源・震度情報を取り消します。"
+            }
+        }
+    }
+]
