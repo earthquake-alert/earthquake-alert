@@ -120,7 +120,8 @@ def tweet(consumer_key: str, consumer_secret: str, token: str,
         pic_upload = twitter.Twitter(domain='upload.twitter.com', auth=auth)
         images = []
         for image in image_path:
-            with open(image, "rb") as imagefile:
-                image_data = imagefile.read()
-            images.append(pic_upload.media.upload(media=image_data)['media_id_string'])
+            if image is not None:
+                with open(image, "rb") as imagefile:
+                    image_data = imagefile.read()
+                images.append(pic_upload.media.upload(media=image_data)['media_id_string'])
         twi.statuses.update(status=text, media_ids=",".join(images))

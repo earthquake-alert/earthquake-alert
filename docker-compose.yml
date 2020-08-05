@@ -9,13 +9,22 @@ services:
             - '5000:5000'
         tty: true
         command: python3 src/main.py
-
+    map:
+        container_name: map
+        build:
+            context: earthquake-map
+            dockerfile: Dockerfile
+        ports:
+            - '8080:8080'
+        tty: true
+        command: python3 src/main.py
     main:
         container_name: main
         build: .
         tty: true
         links:
             - template
+            - map
         volumes:
             - ./config/:/config/
             - ./cache/:/cache/

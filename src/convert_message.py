@@ -7,7 +7,7 @@ Copyright (c) 2020 Earthquake alert
 import datetime
 import os
 import xml.parsers.expat
-from typing import Any, List
+from typing import Any, List, Set, Dict
 
 import requests
 import xmltodict
@@ -95,9 +95,12 @@ def convert_infomation(earthquake: Any) -> Any:
     Returns:
         Any: The extracted data.
     '''
+
     if earthquake['Report']['Head']['InfoType'] != '発表':
         return {
+            'is_cancel': True,
             'title': f"{earthquake['Report']['Head']['Title']} {earthquake['Report']['Head']['InfoType']}",
+            'date': '',
             'max_seismic_intensity': 'None',
             'magnitude': 'None',
             'explanation': [earthquake['Report']['Head']['Headline']['Text']],
@@ -121,7 +124,9 @@ def convert_infomation(earthquake: Any) -> Any:
 
     explanation = []
     explanation.append(earthquake['Report']['Head']['Headline']['Text'])
-    explanation += earthquake['Report']['Body']['Comments']['ForecastComment']['Text'].split('\n\n')
+    explanation += earthquake['Report']['Body']['Comments']['ForecastComment']['Text'].split('\n')
+    if 'FreeFormComment' in earthquake['Report']['Body']['Comments']:
+        explanation += earthquake['Report']['Body']['Comments']['FreeFormComment']
 
     try:
         location = earthquake['Report']['Body']['Earthquake']['Hypocenter']['Area']['jmx_eb:Coordinate']['#text']
@@ -142,6 +147,9 @@ def convert_infomation(earthquake: Any) -> Any:
     serial = str(earthquake['Report']['Head']['Serial'])
     if serial != '1':
         title += f' 第{serial}報'
+
+    event_time = earthquake['Report']['Body']['Earthquake']['OriginTime']
+    date = datetime.datetime.strptime(str(event_time), r'%Y-%m-%dT%H:%M:%S+09:00')
 
     def pref(areas_1):
         def area(areas_2):
@@ -221,10 +229,17 @@ def convert_infomation(earthquake: Any) -> Any:
     except KeyError:
         max_seismic_intensity = '不明'
 
+    if '@condition' in earthquake['Report']['Body']['Earthquake']['jmx_eb:Magnitude']:
+        magnitude = earthquake['Report']['Body']['Earthquake']['jmx_eb:Magnitude']['@description']
+    else:
+        magnitude = earthquake['Report']['Body']['Earthquake']['jmx_eb:Magnitude']['#text']
+
     output = ({
+        'is_cancel': False,
         'title': title,
         'max_seismic_intensity': max_seismic_intensity,
-        'magnitude': earthquake['Report']['Body']['Earthquake']['jmx_eb:Magnitude']['#text'],
+        'date': date.strftime(r'%Y%m%d%H%M%S'),
+        'magnitude': magnitude,
         'explanation': explanation,
         'epicenter': epicenter,
         'areas': formated_areas
@@ -245,6 +260,10 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
         Any: The extracted data.
     '''
     title = earthquake['Report']['Head']['Title']
+
+    event_time = earthquake['Report']['Head']['TargetDateTime']
+    date = datetime.datetime.strptime(str(event_time), r'%Y-%m-%dT%H:%M:%S+09:00')
+
     duplication = duplication_report(earthquake['Report']['Head']['EventID'], cache_file_path)
 
     if duplication != 1:
@@ -252,10 +271,8 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
 
     explanation = []
     explanation.append(earthquake['Report']['Head']['Headline']['Text'])
-    try:
+    if 'ForecastComment' in earthquake['Report']['Body']['Comments']:
         explanation.append(earthquake['Report']['Body']['Comments']['ForecastComment']['Text'])
-    except KeyError:
-        pass
 
     areas = earthquake['Report']['Head']['Headline']['Information']
     if isinstance(areas, list):
@@ -264,8 +281,8 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
         information = areas['Item']
 
     formated_areas = {}
+
     if isinstance(information, list):
-        max_seismic_intensity = information[0]['Kind']['Name']
         for individual in information:
             seismic_intensity = individual['Kind']['Name']
             areas = []
@@ -276,7 +293,6 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
                 areas.append(individual['Areas']['Area']['Name'])
             formated_areas[seismic_intensity] = areas
     else:
-        max_seismic_intensity = information['Kind']['Name']
         seismic_intensity = information['Kind']['Name']
         areas = []
         if isinstance(information['Areas']['Area'], list):
@@ -286,32 +302,45 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
             areas.append(information['Areas']['Area']['Name'])
         formated_areas[seismic_intensity] = areas
 
-    if max_seismic_intensity in {'震度1', '震度１'}:
-        formated_seismic_intensity = '1'
-    elif max_seismic_intensity in {'震度2', '震度２'}:
-        formated_seismic_intensity = '2'
-    elif max_seismic_intensity in {'震度3', '震度３'}:
-        formated_seismic_intensity = '3'
-    elif max_seismic_intensity in {'震度4', '震度４'}:
-        formated_seismic_intensity = '4'
-    elif max_seismic_intensity in {'震度5弱', '震度５弱'}:
-        formated_seismic_intensity = '5-'
-    elif max_seismic_intensity in {'震度5強', '震度５強'}:
-        formated_seismic_intensity = '5+'
-    elif max_seismic_intensity in {'震度6弱', '震度６弱'}:
-        formated_seismic_intensity = '6-'
-    elif max_seismic_intensity in {'震度6強', '震度６強'}:
-        formated_seismic_intensity = '6+'
-    elif max_seismic_intensity in {'震度7', '震度7'}:
-        formated_seismic_intensity = '7'
-    else:
-        formated_seismic_intensity = '0'
+    codes: Dict[str, List[str]] = {}
+    try:
+        area_codes_pref = earthquake['Report']['Body']['Intensity']['Observation']['Pref']
+
+        def add_code(intensity: str, code: str):
+            if (intensity in code):
+                codes[intensity].append(code)
+            else:
+                codes[intensity] = [code]
+
+        if isinstance(area_codes_pref, list):
+            for pref in area_codes_pref:
+                if isinstance(pref['Area'], list):
+                    for element in pref['Area']:
+                        add_code(str(element['MaxInt']), str(element['Code']))
+                else:
+                    add_code(str(pref['Area']['MaxInt']), str(pref['Area']['Code']))
+        else:
+            if isinstance(area_codes_pref['Area'], list):
+                for element in area_codes_pref['Area']:
+                    add_code(str(element['MaxInt']), str(element['Code']))
+            else:
+                add_code(str(area_codes_pref['Area']['MaxInt']), str(area_codes_pref['Area']['Code']))
+
+    except KeyError:
+        pass
+
+    try:
+        max_int = earthquake['Report']['Body']['Intensity']['Observation']['MaxInt']
+    except KeyError:
+        max_int = 'Error'
 
     output = {
         'title': title,
-        'max_seismic_intensity': formated_seismic_intensity,
+        'date': date.strftime(r'%Y%m%d%H%M%S'),
+        'max_seismic_intensity': max_int,
         'explanation': explanation,
-        'areas': formated_areas
+        'areas': formated_areas,
+        'codes': codes
     }
 
     return output

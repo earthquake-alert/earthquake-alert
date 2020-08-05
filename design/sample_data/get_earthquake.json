@@ -1,7 +1,9 @@
 // 変換後のフォーマット
 [
     {
+        "is_cancel": false,
         "title": "",
+        "date": "",
         "max_seismic_intensity": "",
         "magnitude": 5.0,
         "explanation": [
@@ -25,5 +27,39 @@
                 100
             ]
         }
+    }
+],
+// 震度速報
+[
+    {
+        "title": "",
+        "date": "",
+        "max_seismic_intensity": "",
+        "explanation": [
+            "",
+            ""
+        ],
+        "epicenter": {
+            "name": "",
+            "lon": 10,
+            "lat": 10
+        },
+        "areas": {
+            "震度": [
+                100,
+                100,
+                100
+            ],
+            "震度2": [
+                100,
+                100,
+                100
+            ]
+        },
+        "codes": {
+            "7": [
+                "",
+            ],
+        },
     }
 ]

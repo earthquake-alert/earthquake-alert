@@ -11,11 +11,11 @@ from typing import Any
 try:
     from json_operation import json_write, json_read  # pyright: reportMissingImports=false
     from transmission import line, slack, discode, tweet  # pyright: reportMissingImports=false
-    from push_platform import platform_type_0, platform_type_1, platform_type_2  # pyright: reportMissingImports=false
+    from push_platform import platform_type_0, platform_type_1  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.json_operation import json_write, json_read
     from src.transmission import line, slack, discode, tweet
-    from src.push_platform import platform_type_0, platform_type_1, platform_type_2
+    from src.push_platform import platform_type_0, platform_type_1
 
 
 class Filter():
@@ -157,21 +157,6 @@ class Filter():
             for user in self.users:
                 if self.is_push(element, self.users[user]):
                     process = multiprocessing.Process(target=platform_type_1, args=(self.users[user], element))
-                    jobs.append(process)
-                    process.start()
-
-    def post_type_2(self, earthquakes: Any) -> None:
-        '''
-        Formatted images are filtered and sent to the platform set in the user config.
-
-        Args:
-            earthquakes: Earthquake data to send.
-        '''
-        jobs = []
-        for element in earthquakes:
-            for user in self.users:
-                if self.is_push(element, self.users[user]):
-                    process = multiprocessing.Process(target=platform_type_2, args=(self.users[user], element))
                     jobs.append(process)
                     process.start()
 

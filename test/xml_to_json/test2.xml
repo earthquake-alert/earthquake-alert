@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+  <Control>
+    <Title>震源・震度に関する情報</Title>
+    <DateTime>2010-02-27T07:00:44Z</DateTime>
+    <Status>通常</Status>
+    <EditorialOffice>気象庁本庁</EditorialOffice>
+    <PublishingOffice>気象庁</PublishingOffice>
+  </Control>
+  <Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+    <Title>遠地地震に関する情報</Title>
+    <ReportDateTime>2010-02-27T16:00:00+09:00</ReportDateTime>
+    <TargetDateTime>2010-02-27T16:00:00+09:00</TargetDateTime>
+    <EventID>20100227153529</EventID>
+    <InfoType>発表</InfoType>
+    <Serial>1</Serial>
+    <InfoKind>地震情報</InfoKind>
+    <InfoKindVersion>1.0_0</InfoKindVersion>
+    <Headline>
+      <Text>２７日１５時３４分ころ、海外で規模の大きな地震がありました。</Text>
+    </Headline>
+  </Head>
+  <Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+    <Earthquake>
+      <OriginTime>2010-02-27T15:34:00+09:00</OriginTime>
+      <ArrivalTime>2010-02-27T15:34:00+09:00</ArrivalTime>
+      <Hypocenter>
+        <Area>
+          <Name>南米西部</Name>
+          <Code type="震央地名">946</Code>
+          <jmx_eb:Coordinate description="南緯３６．１度　西経　７２．６度　深さ　６０ｋｍ">-36.1-072.6-60000/</jmx_eb:Coordinate>
+          <DetailedName>チリ中部沿岸</DetailedName>
+          <DetailedCode type="詳細震央地名">1135</DetailedCode>
+        </Area>
+        <Source>ＰＴＷＣ</Source>
+      </Hypocenter>
+      <jmx_eb:Magnitude type="M" description="Ｍ８．５">8.5</jmx_eb:Magnitude>
+    </Earthquake>
+    <Comments>
+      <ForecastComment codeType="固定付加文">
+        <Text>太平洋の広域に津波発生の可能性があります。
+一般的に、この規模の地震が海域の浅い領域で発生すると津波が発生することがあります。
+日本への津波の有無については現在調査中です。</Text>
+        <Code>0221 0228 0229</Code>
+      </ForecastComment>
+      <FreeFormComment>ＰＴＷＣでは２７日１５時４６分に津波情報を発表しています。</FreeFormComment>
+    </Comments>
+  </Body>
+</Report>
