@@ -5,9 +5,10 @@
 Copyright (c) 2020 Earthquake alert
 '''
 import datetime
-from typing import List, Dict, Union, Any
-from selenium import webdriver
 import time
+from typing import Any, Dict, List, Union
+
+from selenium import webdriver
 
 
 def create_map_info(

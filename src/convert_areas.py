@@ -91,7 +91,8 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             element['explanation'],
             element['max_seismic_intensity'],
             element['epicenter']['name'],
-            element['magnitude']
+            element['magnitude'],
+            element['date']
         ))
         process.start()
 
@@ -172,6 +173,7 @@ def convert_report(
             element['areas'],
             element['explanation'],
             element['max_seismic_intensity'],
+            element['date']
         ))
         process.start()
 

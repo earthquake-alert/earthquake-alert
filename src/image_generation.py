@@ -4,6 +4,7 @@
 
 Copyright (c) 2020 Earthquake alert
 '''
+import datetime
 import os
 import time
 from typing import Dict, List
@@ -16,7 +17,7 @@ from selenium import webdriver
 
 def create_image(
         save_file_path: str, title: str, areas: Dict[str, List[str]], explanation: List[str],
-        max_seismic_intensity: str, epicenter: str, magnitude: str) -> None:
+        max_seismic_intensity: str, epicenter: str, magnitude: str, date: str) -> None:
     '''
     Create a image using `pillow`.
 
@@ -33,6 +34,8 @@ def create_image(
         FileNotFoundError: No directory found to save.
         TypeError: There are two elements in the list of argument `explanation`.
     '''
+    target_time = datetime.datetime.strptime(str(date), r'%Y%m%d%H%M%S')
+
     if not os.path.isdir(os.path.dirname(save_file_path)):
         raise FileNotFoundError('No directory found to save.')
     if len(explanation) < 2:
@@ -55,13 +58,14 @@ def create_image(
         max_seismic_intensity = '6強'
 
     url = f'http://template:5000/template?ti={title}&areas={areas}\
-&exp={explanation}&max_si={max_seismic_intensity}&epi={epicenter}&mag={magnitude}'
+&exp={explanation}&max_si={max_seismic_intensity}&epi={epicenter}\
+&mag={magnitude}&date={target_time.strftime(r"%Y%m%d%H%M%S")}'
 
     captcha(url, save_file_path)
 
 
 def create_image_report(save_file_path: str, title: str, areas: Dict[str, List[str]], explanation: List[str],
-                        max_seismic_intensity: str) -> None:
+                        max_seismic_intensity: str, date: str) -> None:
     '''
     Create a image using `pillow`.
     For seismic intensity flash report
@@ -77,6 +81,8 @@ def create_image_report(save_file_path: str, title: str, areas: Dict[str, List[s
         FileNotFoundError: No directory found to save.
         TypeError: There are two elements in the list of argument `explanation`.
     '''
+    target_time = datetime.datetime.strptime(str(date), r'%Y%m%d%H%M%S')
+
     if not os.path.isdir(os.path.dirname(save_file_path)):
         raise FileNotFoundError('No directory found to save.')
     if len(explanation) < 2:
@@ -96,7 +102,8 @@ def create_image_report(save_file_path: str, title: str, areas: Dict[str, List[s
     elif max_seismic_intensity in {'+6', '6+', '６＋', '＋６'}:
         max_seismic_intensity = '6強'
 
-    url = f'http://template:5000/report?ti={title}&areas={areas}&exp={explanation}&max_si={max_seismic_intensity}'
+    url = f'http://template:5000/report?ti={title}\
+&areas={areas}&exp={explanation}&max_si={max_seismic_intensity}&date={target_time.strftime(r"%Y%m%d%H%M%S")}'
 
     captcha(url, save_file_path)
 

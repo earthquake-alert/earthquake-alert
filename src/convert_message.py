@@ -7,7 +7,7 @@ Copyright (c) 2020 Earthquake alert
 import datetime
 import os
 import xml.parsers.expat
-from typing import Any, List, Set, Dict
+from typing import Any, Dict, List
 
 import requests
 import xmltodict
