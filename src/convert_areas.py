@@ -110,9 +110,9 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
         process.join()
 
         target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
-        text = f"{target_time.strftime(r'%d日%H時%M分')}ころ{element['epicenter']['name']}を震源とする地震がありました。"
-        text += f"震源の規模を示すマグニチュードは{element['max_seismic_intensity']}と推定されています。"
-        text += element['explanation'][1]
+        text = f"{target_time.strftime(r'%d日%H時%M分')}頃{element['epicenter']['name']}を震源とする地震がありました。"
+        text += f"マグニチュードは{element['magnitude']}、最大震度は{element['max_seismic_intensity']}と推定されています。"
+        text += ''.join(element['explanation'][1:])
 
         converted.append({
             'title': element['title'],
@@ -192,7 +192,7 @@ def convert_report(
         target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
         text = f"{target_time.strftime(r'%d日%H時%M分')}ころ地震がありました。"
         text += f"最大震度{change_seismic_intensity(element['max_seismic_intensity'])[1]}を観測しています。"
-        text += element['explanation'][1]
+        text += ''.join(element['explanation'][1:])
 
         converted.append({
             'title': element['title'],
