@@ -1,0 +1,125 @@
+[
+    {
+        "Report": {
+            "@xmlns": "http://xml.kishou.go.jp/jmaxml1/",
+            "@xmlns:jmx": "http://xml.kishou.go.jp/jmaxml1/",
+            "Control": {
+                "Title": "震度速報",
+                "DateTime": "2020-08-05T17:56:49Z",
+                "Status": "通常",
+                "EditorialOffice": "気象庁本庁",
+                "PublishingOffice": "気象庁"
+            },
+            "Head": {
+                "@xmlns": "http://xml.kishou.go.jp/jmaxml1/informationBasis1/",
+                "Title": "震度速報",
+                "ReportDateTime": "2020-08-06T02:56:00+09:00",
+                "TargetDateTime": "2020-08-06T02:54:00+09:00",
+                "EventID": "20200806025408",
+                "InfoType": "発表",
+                "Serial": null,
+                "InfoKind": "震度速報",
+                "InfoKindVersion": "1.0_1",
+                "Headline": {
+                    "Text": "６日０２時５４分ころ、地震による強い揺れを感じました。震度３以上が観測された地域をお知らせします。",
+                    "Information": {
+                        "@type": "震度速報",
+                        "Item": {
+                            "Kind": {
+                                "Name": "震度３"
+                            },
+                            "Areas": {
+                                "@codeType": "地震情報／細分区域",
+                                "Area": [
+                                    {
+                                        "Name": "福島県中通り",
+                                        "Code": "250"
+                                    },
+                                    {
+                                        "Name": "福島県浜通り",
+                                        "Code": "251"
+                                    },
+                                    {
+                                        "Name": "茨城県北部",
+                                        "Code": "300"
+                                    },
+                                    {
+                                        "Name": "栃木県北部",
+                                        "Code": "310"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "Body": {
+                "@xmlns": "http://xml.kishou.go.jp/jmaxml1/body/seismology1/",
+                "@xmlns:jmx_eb": "http://xml.kishou.go.jp/jmaxml1/elementBasis1/",
+                "Intensity": {
+                    "Observation": {
+                        "CodeDefine": {
+                            "Type": [
+                                {
+                                    "@xpath": "Pref/Code",
+                                    "#text": "地震情報／都道府県等"
+                                },
+                                {
+                                    "@xpath": "Pref/Area/Code",
+                                    "#text": "地震情報／細分区域"
+                                }
+                            ]
+                        },
+                        "MaxInt": "3",
+                        "Pref": [
+                            {
+                                "Name": "福島県",
+                                "Code": "07",
+                                "MaxInt": "3",
+                                "Area": [
+                                    {
+                                        "Name": "福島県中通り",
+                                        "Code": "250",
+                                        "MaxInt": "3"
+                                    },
+                                    {
+                                        "Name": "福島県浜通り",
+                                        "Code": "251",
+                                        "MaxInt": "3"
+                                    }
+                                ]
+                            },
+                            {
+                                "Name": "茨城県",
+                                "Code": "08",
+                                "MaxInt": "3",
+                                "Area": {
+                                    "Name": "茨城県北部",
+                                    "Code": "300",
+                                    "MaxInt": "3"
+                                }
+                            },
+                            {
+                                "Name": "栃木県",
+                                "Code": "09",
+                                "MaxInt": "3",
+                                "Area": {
+                                    "Name": "栃木県北部",
+                                    "Code": "310",
+                                    "MaxInt": "3"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "Comments": {
+                    "ForecastComment": {
+                        "@codeType": "固定付加文",
+                        "Text": "今後の情報に注意してください。",
+                        "Code": "0217"
+                    }
+                }
+            }
+        }
+    }
+]

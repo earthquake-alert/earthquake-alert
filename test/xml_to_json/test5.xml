@@ -1,0 +1,99 @@
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震度速報</Title>
+<DateTime>2020-08-05T17:56:49Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>気象庁本庁</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震度速報</Title>
+<ReportDateTime>2020-08-06T02:56:00+09:00</ReportDateTime>
+<TargetDateTime>2020-08-06T02:54:00+09:00</TargetDateTime>
+<EventID>20200806025408</EventID>
+<InfoType>発表</InfoType>
+<Serial/>
+<InfoKind>震度速報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>　６日０２時５４分ころ、地震による強い揺れを感じました。震度３以上が観測された地域をお知らせします。</Text>
+<Information type="震度速報">
+<Item>
+<Kind>
+<Name>震度３</Name>
+</Kind>
+<Areas codeType="地震情報／細分区域">
+<Area>
+<Name>福島県中通り</Name>
+<Code>250</Code>
+</Area>
+<Area>
+<Name>福島県浜通り</Name>
+<Code>251</Code>
+</Area>
+<Area>
+<Name>茨城県北部</Name>
+<Code>300</Code>
+</Area>
+<Area>
+<Name>栃木県北部</Name>
+<Code>310</Code>
+</Area>
+</Areas>
+</Item>
+</Information>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+</CodeDefine>
+<MaxInt>3</MaxInt>
+<Pref>
+<Name>福島県</Name>
+<Code>07</Code>
+<MaxInt>3</MaxInt>
+<Area>
+<Name>福島県中通り</Name>
+<Code>250</Code>
+<MaxInt>3</MaxInt>
+</Area>
+<Area>
+<Name>福島県浜通り</Name>
+<Code>251</Code>
+<MaxInt>3</MaxInt>
+</Area>
+</Pref>
+<Pref>
+<Name>茨城県</Name>
+<Code>08</Code>
+<MaxInt>3</MaxInt>
+<Area>
+<Name>茨城県北部</Name>
+<Code>300</Code>
+<MaxInt>3</MaxInt>
+</Area>
+</Pref>
+<Pref>
+<Name>栃木県</Name>
+<Code>09</Code>
+<MaxInt>3</MaxInt>
+<Area>
+<Name>栃木県北部</Name>
+<Code>310</Code>
+<MaxInt>3</MaxInt>
+</Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>今後の情報に注意してください。</Text>
+<Code>0217</Code>
+</ForecastComment>
+</Comments>
+</Body>
+</Report>

@@ -307,7 +307,7 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
         area_codes_pref = earthquake['Report']['Body']['Intensity']['Observation']['Pref']
 
         def add_code(intensity: str, code: str):
-            if (intensity in code):
+            if (intensity in codes):
                 codes[intensity].append(code)
             else:
                 codes[intensity] = [code]
@@ -333,6 +333,8 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
         max_int = earthquake['Report']['Body']['Intensity']['Observation']['MaxInt']
     except KeyError:
         max_int = 'Error'
+
+    print(codes)
 
     output = {
         'title': title,

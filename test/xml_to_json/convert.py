@@ -4,7 +4,7 @@ import xmltodict
 
 
 def main():
-    path = 'test/xml_to_json/test4.xml'
+    path = 'test/xml_to_json/test5.xml'
     with open(path) as f:
         text_list = f.readlines()
 
