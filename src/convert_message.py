@@ -6,7 +6,6 @@ Copyright (c) 2020 Earthquake alert
 '''
 import datetime
 import os
-import xml.parsers.expat
 from typing import Any, Dict, List
 
 import requests
@@ -45,7 +44,7 @@ def convert_xml_infomation(links: List[str]) -> List[Any]:
 
         try:
             earthquake = xmltodict.parse(xml_data.text)
-        except (xmltodict.expat.ExpartError, xml.parsers.expat.ExpatError):
+        except xmltodict.expat.ExpartError:
             continue
 
         output.append(convert_infomation(earthquake))
@@ -77,7 +76,7 @@ def convert_xml_report(links: List[str], cache_dir: str) -> List[Any]:
 
         try:
             earthquake = xmltodict.parse(xml_data.text)
-        except (xmltodict.expat.ExpartError, xml.parsers.expat.ExpatError):
+        except xmltodict.expat.ExpartError:
             continue
 
         output.append(convert_report(earthquake, cache_file_path))
@@ -307,7 +306,7 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
         area_codes_pref = earthquake['Report']['Body']['Intensity']['Observation']['Pref']
 
         def add_code(intensity: str, code: str):
-            if (intensity in codes):
+            if intensity in codes:
                 codes[intensity].append(code)
             else:
                 codes[intensity] = [code]

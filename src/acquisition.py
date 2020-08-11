@@ -5,7 +5,6 @@
 Copyright (c) 2020 Earthquake alert
 '''
 import os
-import xml.parsers.expat
 from typing import Any, List
 
 import requests
@@ -89,7 +88,7 @@ class AcquisitionJMA():
 
             try:
                 text = xmltodict.parse(xml_data)
-            except (xmltodict.expat.ExpartError, xml.parsers.expat.ExpatError):
+            except xmltodict.expat.ExpartError:
                 return
 
             for element in text['feed']['entry']:
