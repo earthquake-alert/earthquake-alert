@@ -1,7 +1,5 @@
 FROM nikolaik/python-nodejs:python3.6-nodejs14
 
-COPY src /src
-
 COPY Pipfile /Pipfile
 COPY Pipfile.lock /Pipfile.lock
 COPY package.json /package.json

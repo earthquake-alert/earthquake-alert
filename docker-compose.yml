@@ -8,6 +8,7 @@ services:
         ports:
             - '5000:5000'
         tty: true
+        restart: always
         command: python3 src/main.py
     map:
         container_name: map
@@ -17,15 +18,18 @@ services:
         ports:
             - '8080:8080'
         tty: true
+        restart: always
         command: python3 src/main.py
     main:
         container_name: main
         build: .
         tty: true
+        restart: always
         links:
             - template
             - map
         volumes:
             - ./config/:/config/
             - ./cache/:/cache/
+            - ./src/:/src/
         command: python3 src/main.py
