@@ -75,10 +75,9 @@ def captcha(url: str, save_file_path: str) -> None:
     options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(options=options)
 
-    driver.get(url)
     driver.set_window_size(1920, 1080)
-    time.sleep(1)
     driver.execute_script("document.body.style.zoom='100%'")
+    driver.get(url)
     time.sleep(3)
     driver.save_screenshot(save_file_path)
     driver.quit()
