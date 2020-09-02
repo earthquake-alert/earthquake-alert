@@ -1,9 +1,8 @@
-FROM nikolaik/python-nodejs:python3.6-nodejs14
+# FROM nikolaik/python-nodejs:python3.6-nodejs14
+FROM python:3.6
 
 COPY Pipfile /Pipfile
 COPY Pipfile.lock /Pipfile.lock
-COPY package.json /package.json
-COPY yarn.lock /yarn.lock
 
 RUN apt-get update && apt-get install -y unzip
 
@@ -32,7 +31,6 @@ RUN cd /tmp && \
     fc-cache -fv && \
     rm -rf NotoSansCJKjp-hinted.zip ./noto
 
-RUN yarn install
 RUN pip3 install pipenv
 RUN pipenv install --system --deploy
 
