@@ -25,6 +25,7 @@ def main():
     Perform an earthquake bulletin.
     By operating multiple processes, you can send data from the Japan Meteorological Agency or NIED.
     '''
+    print("RUN ...")
     user_config_path = os.path.join('config', 'user_setting.json')
     cache_dir = os.path.join('cache')
     if not os.path.isdir(cache_dir):

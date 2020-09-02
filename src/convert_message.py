@@ -333,8 +333,6 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
     except KeyError:
         max_int = 'Error'
 
-    print(codes)
-
     output = {
         'title': title,
         'date': date.strftime(r'%Y%m%d%H%M%S'),
