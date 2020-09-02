@@ -5,10 +5,10 @@
 Copyright (c) 2020 Earthquake alert
 '''
 import os
-from typing import Optional, List
+from typing import List, Optional
 
 import requests
-import twitter
+import tweepy
 from discord_webhook import DiscordWebhook
 
 
@@ -107,23 +107,19 @@ def tweet(consumer_key: str, consumer_secret: str, token: str,
         text (str): Content to send.
         image_path (Optional[List[str]]): The image to send. Up to 4
     '''
-
-    auth = twitter.OAuth(consumer_key=consumer_key,
-                         consumer_secret=consumer_secret,
-                         token=token,
-                         token_secret=token_secret)
-    twi = twitter.Twitter(auth=auth)
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(token, token_secret)
+    api = tweepy.API(auth)
 
     if image_path is None:
-        twi.statuses.update(status=text)
+        api.update_status(text)
     else:
-        pic_upload = twitter.Twitter(domain='upload.twitter.com', auth=auth)
-        images = []
-        for image in image_path:
-            if image is not None:
-                with open(image, "rb") as imagefile:
-                    image_data = imagefile.read()
-                images.append(pic_upload.media.upload(media=image_data)['media_id_string'])
-        twi.statuses.update(status=text, media_ids=",".join(images))
-        # next line is a response test.
-        print(twi.response.headers.get('h'))
+        # media_ids = []
+        # for image in image_path:
+        #     img = api.media_upload(image)
+        #     media_ids.append(img.media_id_string)
+        # api.update_with_media(status=text, filename=media_ids)
+        status = api.update_with_media(filename=image_path[1], status=text)
+
+        api.update_with_media(filename=image_path[0], status=text,
+                              auto_populate_reply_metadata=True, in_reply_to_status_id=status.id)
