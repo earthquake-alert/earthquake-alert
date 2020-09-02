@@ -121,5 +121,5 @@ def tweet(consumer_key: str, consumer_secret: str, token: str,
         # api.update_with_media(status=text, filename=media_ids)
         status = api.update_with_media(filename=image_path[1], status=text)
 
-        api.update_with_media(filename=image_path[0], status=text,
+        api.update_with_media(filename=image_path[0],
                               auto_populate_reply_metadata=True, in_reply_to_status_id=status.id)
