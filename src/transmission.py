@@ -125,3 +125,5 @@ def tweet(consumer_key: str, consumer_secret: str, token: str,
                     image_data = imagefile.read()
                 images.append(pic_upload.media.upload(media=image_data)['media_id_string'])
         twi.statuses.update(status=text, media_ids=",".join(images))
+        # next line is a response test.
+        print(twi.response.headers.get('h'))
