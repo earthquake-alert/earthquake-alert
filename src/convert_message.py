@@ -13,8 +13,10 @@ import xmltodict
 
 try:
     from json_operation import json_write, json_read  # pyright: reportMissingImports=false
+    from convert_areas import change_seismic_intensity  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.json_operation import json_write, json_read
+    from src.convert_areas import change_seismic_intensity
 
 # Too many variables, branches and statements is specifications
 # pylint: disable=R0914
@@ -306,10 +308,11 @@ def convert_report(earthquake: Any, cache_file_path: str) -> Any:
         area_codes_pref = earthquake['Report']['Body']['Intensity']['Observation']['Pref']
 
         def add_code(intensity: str, code: str):
-            if intensity in codes:
-                codes[intensity].append(code)
+            formated_intensity = change_seismic_intensity(intensity)[0]
+            if formated_intensity in codes:
+                codes[formated_intensity].append(code)
             else:
-                codes[intensity] = [code]
+                codes[formated_intensity] = [code]
 
         if isinstance(area_codes_pref, list):
             for pref in area_codes_pref:
