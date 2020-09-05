@@ -50,7 +50,7 @@ def jma(post: Filter, cache_dir: str):
     link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol.xml'
     # link = 'http://www.data.jma.go.jp/developer/xml/feed/eqvol_l.xml'
 
-    db_file_path = os.path.join('src', 'external', 'area-code-database', 'databese', 'areas.db')
+    db_file_path = os.path.join('src', 'external', 'data.db')
     image_cache_dir = os.path.join(cache_dir, 'images')
     if not os.path.isdir(image_cache_dir):
         os.makedirs(image_cache_dir)

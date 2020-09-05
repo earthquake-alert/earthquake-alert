@@ -1,6 +1,3 @@
-[submodule "src/external/area-code-database"]
-	path = src/external/area-code-database
-	url = https://github.com/earthquake-alert/area-code-database.git
 [submodule "src/external/template-conversion"]
 	path = template-conversion
 	url = https://github.com/earthquake-alert/template-conversion.git
