@@ -76,7 +76,11 @@ class AcquisitionJMA():
             return
 
         last_acquisition = self.__load_cache({'latest': None, 'report': [], 'infomation': []})
-        last_modified = self.responce.headers['Last-Modified']
+
+        try:
+            last_modified = self.responce.headers['Last-Modified']
+        except KeyError:
+            return
 
         if last_modified != last_acquisition['latest']:
             delete_ids = set()
