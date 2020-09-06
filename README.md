@@ -1,5 +1,6 @@
-# Earthquake alert
+# Earthquake Alert
 
+[![Twitter Follow](https://img.shields.io/twitter/follow/e_alert_?color=26a4f1&label=Twitter%20Fllow&style=flat-square)](https://twitter.com/intent/follow?screen_name=e_alert_)
 ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/earthquake-alert/earthquake-alert?style=flat-square)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/earthquake-alert/earthquake-alert?style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/earthquake-alert/earthquake-alert?style=flat-square)
@@ -7,14 +8,16 @@
 
 🇯🇵| [🇺🇸](documents/README_en.md)
 
+![title](asset/title.png)
+
 ## tl;dr
 
 - 気象庁、防災科研他から地震情報を取得し、フォーマットした情報をSNSなどのさまざまなプラットフォームに送信します。
-- 震度分布図を作成します。 (´-ω-｀)
+- 震度分布図を作成します。
 
 ## 📢 送信可能なプラットフォーム
 
-- Discode（サーバーウェブフック）
+- Discord（サーバーウェブフック）
 - Slack（Slack bot）
 - LINE（LINE notify）
 - Twitter API
@@ -23,7 +26,7 @@
 
 - 震度速報はテンプレートを適用した画像のみ。震源・震度に関する情報はテンプレートを適用した画像と震度分布図を送信します。
 - 複数のプラットフォームに別々に「送信する最低震度」「対象地域」を指定できます。
-- Dcokerですべて動作させるため、デプロイ時に他の依存関係をインストールする必要はありません。
+- Dockerですべて動作させるため、デプロイ時に他の依存関係をインストールする必要はありません。
 
 ## 🚀 動かす
 
@@ -60,7 +63,7 @@ docker-compose down
 ## ⚠ chrome driverについて
 
 Chromeは最新版をビルドする際に取得します。そのため、chrome-driverは常に最新版Chromeに合ったバージョンである必要があります。\
-以下のサイトから最新版に対応したchrome-driverのダウンロードリンクをコピーして、[Dockerfil](./Dockerfile)eの`install ChromeDriver`部分の**ADD**内のリンクを変更してください。
+以下のサイトから最新版に対応したchrome-driverのダウンロードリンクをコピーして、[Dockerfile](./Dockerfile)eの`install ChromeDriver`部分の**ADD**内のリンクを変更してください。
 
 [Index of chrome-driver](https://chromedriver.storage.googleapis.com/index.html)
 
@@ -79,3 +82,6 @@ Chromeは最新版をビルドする際に取得します。そのため、chrom
 ## ⚖ ライセンス
 
 [MIT LICENSE](LICENSE)
+
+<a href="https://twitter.com/e_alert_?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @e_alert_</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
