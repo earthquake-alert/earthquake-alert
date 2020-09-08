@@ -244,7 +244,7 @@ def change_seismic_intensity(seismic_intensity: str) -> tuple:
     Returns:
         tuple: Display converted for map.
     '''
-    formated_seismic_ontensity = ('0', '震度0')
+    formated_seismic_ontensity = ('0', '震度不明')
     if seismic_intensity in {'1', '１', '震度1', '震度１'}:
         formated_seismic_ontensity = ('1', '震度1')
     elif seismic_intensity in {'2', '２', '震度2', '震度２'}:
