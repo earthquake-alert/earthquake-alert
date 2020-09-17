@@ -112,6 +112,11 @@ class AcquisitionJMA():
                 if title in {'震度速報', '震源・震度に関する情報'}:
                     delete_ids.add(_id)
 
+            if self.report != []:
+                self.report.reverse()
+            if self.infomation != []:
+                self.infomation.reverse()
+
             delete_report = report_ids - delete_ids
             delete_infomation = infomation_ids - delete_ids
 
