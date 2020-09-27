@@ -109,10 +109,25 @@ def convert(earthquakes: List[Dict[str, Any]], db_file_path: str, image_director
             map_file_path = ''
         process.join()
 
-        target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
-        text = f"{target_time.strftime(r'%d日%H時%M分')}頃{element['epicenter']['name']}を震源とする地震がありました。"
-        text += f"規模はM{element['magnitude']}、最大{change_seismic_intensity(element['max_seismic_intensity'])[1]}を観測しています。"
-        text += ''.join(element['explanation'][1:])
+        if element['is_cancel']:
+            # cancel
+            text = element['explanation'][0]
+        elif '遠地地震' in element['title']:
+            target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
+            text = f"{target_time.strftime(r'%d日%H時%M分')}頃、{element['epicenter']['name']}で規模の大きな地震がありました。"
+            text += f"規模はM{element['magnitude']}と推定されています。"
+            text += ''.join(element['explanation'][1:])
+        else:
+            target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
+            text = f"{target_time.strftime(r'%d日%H時%M分')}頃、{element['epicenter']['name']}を震源とする地震がありました。"
+            text += f"規模はM{element['magnitude']}、"
+
+            if element['max_seismic_intensity'] == '不明':
+                text += '最大震度は不明です。'
+            else:
+                text += f"最大{change_seismic_intensity(element['max_seismic_intensity'])[1]}を観測しています。"
+
+            text += ''.join(element['explanation'][1:])
 
         converted.append({
             'title': element['title'],
@@ -190,7 +205,7 @@ def convert_report(
         process2.join()
 
         target_time = datetime.datetime.strptime(str(element['date']), r'%Y%m%d%H%M%S')
-        text = f"{target_time.strftime(r'%d日%H時%M分')}ころ地震がありました。"
+        text = f"{target_time.strftime(r'%d日%H時%M分')}頃、地震がありました。"
         text += f"最大{change_seismic_intensity(element['max_seismic_intensity'])[1]}を観測しています。"
         text += ''.join(element['explanation'][1:])
 

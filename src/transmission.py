@@ -114,12 +114,10 @@ def tweet(consumer_key: str, consumer_secret: str, token: str,
     if image_path is None:
         api.update_status(text)
     else:
-        # media_ids = []
-        # for image in image_path:
-        #     img = api.media_upload(image)
-        #     media_ids.append(img.media_id_string)
-        # api.update_with_media(status=text, filename=media_ids)
-        status = api.update_with_media(filename=image_path[1], status=text)
+        if image_path[1] == '':
+            api.update_with_media(filename=image_path[0], status=text)
+        else:
+            status = api.update_with_media(filename=image_path[1], status=text)
 
-        api.update_with_media(filename=image_path[0],
-                              auto_populate_reply_metadata=True, in_reply_to_status_id=status.id)
+            api.update_with_media(filename=image_path[0],
+                                  auto_populate_reply_metadata=True, in_reply_to_status_id=status.id)
