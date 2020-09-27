@@ -34,12 +34,16 @@ def create_image(
         FileNotFoundError: No directory found to save.
         TypeError: There are two elements in the list of argument `explanation`.
     '''
-    target_time = datetime.datetime.strptime(str(date), r'%Y%m%d%H%M%S')
+    if date == '':
+        target_time = ''
+    else:
+        target_time = datetime.datetime.strptime(str(date), r'%Y%m%d%H%M%S').strftime(r"%Y%m%d%H%M%S")
 
     if not os.path.isdir(os.path.dirname(save_file_path)):
         raise FileNotFoundError('No directory found to save.')
-    if len(explanation) < 2:
-        raise TypeError('At least two description elements are required.')
+
+    if ('遠地地震' in title) and (len(explanation) > 4):
+        explanation = explanation[:4]
 
     if title == '':
         title = 'No data.'
@@ -59,7 +63,7 @@ def create_image(
 
     url = f'http://template:5000/template?ti={title}&areas={areas}\
 &exp={explanation}&max_si={max_seismic_intensity}&epi={epicenter}\
-&mag={magnitude}&date={target_time.strftime(r"%Y%m%d%H%M%S")}'
+&mag={magnitude}&date={target_time}'
 
     captcha(url, save_file_path)
 
