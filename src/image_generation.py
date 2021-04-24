@@ -130,8 +130,7 @@ def captcha(url: str, save_file_path: str) -> None:
         driver.get(url)
         time.sleep(0.5)
         page_height = driver.execute_script('return document.body.scrollHeight')
-        if page_height >= 2048:
-            page_height = 2048
+        page_height = min(page_height, 2048)
         driver.set_window_size(1024, page_height)
         time.sleep(0.5)
         driver.execute_script("document.body.style.zoom='100%'")
