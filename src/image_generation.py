@@ -6,6 +6,7 @@ Copyright (c) 2020 Earthquake alert
 '''
 import datetime
 import os
+import signal
 import time
 from typing import Dict, List
 
@@ -120,18 +121,21 @@ def captcha(url: str, save_file_path: str) -> None:
         url (str): URL to capture.
         save_file_path (str): File path to save the captured image.
     '''
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    driver = webdriver.Chrome(options=options)
+    try:
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        driver = webdriver.Chrome(options=options)
 
-    driver.get(url)
-    time.sleep(0.5)
-    page_height = driver.execute_script('return document.body.scrollHeight')
-    if page_height >= 2048:
-        page_height = 2048
-    driver.set_window_size(1024, page_height)
-    time.sleep(0.5)
-    driver.execute_script("document.body.style.zoom='100%'")
-    driver.save_screenshot(save_file_path)
-    driver.quit()
+        driver.get(url)
+        time.sleep(0.5)
+        page_height = driver.execute_script('return document.body.scrollHeight')
+        if page_height >= 2048:
+            page_height = 2048
+        driver.set_window_size(1024, page_height)
+        time.sleep(0.5)
+        driver.execute_script("document.body.style.zoom='100%'")
+        driver.save_screenshot(save_file_path)
+        driver.quit()
+    finally:
+        os.kill(driver.service.process.pid, signal.SIGTERM)
