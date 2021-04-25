@@ -135,6 +135,8 @@ def captcha(url: str, save_file_path: str) -> None:
         time.sleep(0.5)
         driver.execute_script("document.body.style.zoom='100%'")
         driver.save_screenshot(save_file_path)
-        driver.quit()
     finally:
+        # issued by: https://stackoverflow.com/questions/21320837/release-selenium-chromedriver-exe-from-memory
+        time.sleep(3)
+        driver.quit()
         os.kill(driver.service.process.pid, signal.SIGTERM)

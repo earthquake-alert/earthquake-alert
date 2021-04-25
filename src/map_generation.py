@@ -83,6 +83,8 @@ def captcha(url: str, save_file_path: str) -> None:
         driver.get(url)
         time.sleep(3)
         driver.save_screenshot(save_file_path)
-        driver.quit()
     finally:
+        # issued by: https://stackoverflow.com/questions/21320837/release-selenium-chromedriver-exe-from-memory
+        time.sleep(3)
+        driver.quit()
         os.kill(driver.service.process.pid, signal.SIGTERM)
