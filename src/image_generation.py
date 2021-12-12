@@ -121,12 +121,12 @@ def captcha(url: str, save_file_path: str) -> None:
         url (str): URL to capture.
         save_file_path (str): File path to save the captured image.
     '''
-    try:
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        driver = webdriver.Chrome(options=options)
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(options=options)
 
+    try:
         driver.get(url)
         time.sleep(0.5)
         page_height = driver.execute_script('return document.body.scrollHeight')
@@ -135,8 +135,6 @@ def captcha(url: str, save_file_path: str) -> None:
         time.sleep(0.5)
         driver.execute_script("document.body.style.zoom='100%'")
         driver.save_screenshot(save_file_path)
-    finally:
-        # issued by: https://stackoverflow.com/questions/21320837/release-selenium-chromedriver-exe-from-memory
-        time.sleep(3)
         driver.quit()
-        os.kill(driver.service.process.pid, signal.SIGTERM)
+    finally:
+        driver.quit()
