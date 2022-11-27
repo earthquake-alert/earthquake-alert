@@ -14,7 +14,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 RUN apt-get install -y vim
 
 #install ChromeDriver
-ADD https://chromedriver.storage.googleapis.com/96.0.4664.45/chromedriver_linux64.zip /opt/chrome/
+ADD https://chromedriver.storage.googleapis.com/107.0.5304.62/chromedriver_linux64.zip /opt/chrome/
 RUN cd /opt/chrome/ && \
     unzip chromedriver_linux64.zip
 
