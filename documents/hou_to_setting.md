@@ -10,7 +10,7 @@
 
 ```json
 {
-    "push_discode": {
+    "push_discord": {
         "platform": 3,
         "token": "[Token]",
         "seismic_intensity": "0",
