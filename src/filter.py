@@ -10,11 +10,11 @@ from typing import Any
 
 try:
     from json_operation import json_write, json_read  # pyright: reportMissingImports=false
-    from transmission import line, slack, discode, tweet  # pyright: reportMissingImports=false
+    from transmission import line, slack, discord, tweet  # pyright: reportMissingImports=false
     from push_platform import platform_type_0, platform_type_1  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
     from src.json_operation import json_write, json_read
-    from src.transmission import line, slack, discode, tweet
+    from src.transmission import line, slack, discord, tweet
     from src.push_platform import platform_type_0, platform_type_1
 
 
@@ -120,7 +120,7 @@ class Filter():
                 channel = new_users[user_name]['channel']
                 slack(token, channel, text, None)
             elif platform == 3:
-                discode(token, text, None)
+                discord(token, text, None)
             elif platform == 4:
                 consumer_key = new_users[user_name]['consumer_key']
                 consumer_secret = new_users[user_name]['consumer_secret']
