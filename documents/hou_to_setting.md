@@ -61,7 +61,7 @@
 - 個別の要素の中の説明
   - `platform`
     - 送信するプラットフォームを指定します。
-      - 1:LINEnotify, 2:Slack, 3:Discode
+      - 1:LINEnotify, 2:Slack, 3:Discord
     - 1から3の整数を入れてください。
   - `token`
     - アクセストークンまたはWebhookURLを指定してください。
