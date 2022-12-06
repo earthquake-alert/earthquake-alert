@@ -69,13 +69,13 @@ def slack(token: str, channel: str, text: str, image_path: Optional[str]) -> Non
         print(error)
 
 
-def discode(token: str, text: str, image_path: Optional[str]) -> None:
+def discord(token: str, text: str, image_path: Optional[str]) -> None:
     '''
-    Send information to discode.
+    Send information to discord.
     If there is an image path, it will be sent with the image.
 
     Args:
-        token (str): discode webhook.
+        token (str): discord webhook.
         text (str): character to send
         image_path (Optional[str]): image path
     '''
