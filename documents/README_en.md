@@ -9,77 +9,75 @@
 
 ![title](../asset/title.png)
 
-```text
-    ## tl;dr
+   ## tl;dr
 
-    - 気象庁、防災科研他から地震情報を取得し、フォーマットした情報をSNSなどのさまざまなプラットフォームに送信します。
-    - 震度分布図を作成します。
+   - Obtains earthquake information from the Japan Meteorological Agency, National Research Institute for Earth Science and Disaster Prevention, and others, and sends the formatted information to various platforms such as SNS.
+   - Create seismic intensity distribution maps.
 
-    ## 📢 送信可能なプラットフォーム
+   ## 📢 Transmittable platforms
 
-    - Discord（server web hook）
-    - Slack（Slack bot）
-    - LINE（LINE notify）
-    - Twitter API
+   - Discord (server web hook)
+   - Slack (Slack bot)
+   - LINE (LINE notify)
+   - Twitter API
 
-    ## 💬 細かい仕様
+   ## 💬 Detailed specifications
 
-    - 震度速報はテンプレートを適用した画像のみ。震源・震度に関する情報はテンプレートを適用した画像と震度分布図を送信します。
-    - 複数のプラットフォームに別々に「送信する最低震度」「対象地域」を指定できます。
-    - Dockerですべて動作させるため、デプロイ時に他の依存関係をインストールする必要はありません。
+   - For seismic intensity bulletins, only template-applied images are available. For information on the epicenter and seismic intensity, template-applied images and seismic intensity distribution maps will be sent.
+   - The "minimum seismic intensity to be sent" and "target area" can be specified separately for multiple platforms.
+   - No other dependencies need to be installed at the time of deployment because everything runs on Docker.
 
-    ## 🚀 動かす
+   ## 🚀 Move it.
 
-    **Git、Dockerがインストールされていることが前提です。**
+   **Git and Docker must be installed. **
 
-    必ず、git経由でダウンロードをしてください。
+   Be sure to download via git.
 
-    ```bash
-    git clone https://github.com/earthquake-alert/earthquake-alert.git
-    ```
+   ```bash
+   git clone https://github.com/earthquake-alert/earthquake-alert.git
+   ```
 
-    [chrome-driver](#-chrome-driverについて)のバージョンを確認して、任意で最新版Chromeに対応したものへ変更してください。
+   Check the version of [chrome-driver](#-about chrome-driver) and optionally change it to the one that supports the latest version of Chrome.
 
-    ```bash
-    # サブモジュールのアップデート
+   ```bash
+   # update submodules
     sh build/init_submodule.sh
 
-    # 動かす
+   # run
     docker-compose up -d
 
-    # ログの確認
+   # Check logs
     docker-compose logs -f
 
-    # 一時停止
+   # pause docker-compose
     docker-compose stop
 
-    # 再開
+   # restart
     docker-compose up -d
 
-    # 停止(コンテナも削除)
+   # stop (also remove containers)
     docker-compose down
-    ```
+   ````
 
-    ## ⚠ chrome driverについて
+   ## ⚠ About chrome driver
 
-    Chromeは最新版をビルドする際に取得します。そのため、chrome-driverは常に最新版Chromeに合ったバージョンである必要があります。\
-    以下のサイトから最新版に対応したchrome-driverのダウンロードリンクをコピーして、[Dockerfile](./Dockerfile)eの`install ChromeDriver`部分の**ADD**内のリンクを変更してください。
+   Chrome gets the latest version when it is built. Therefore, chrome-driver must always be the right version for the latest version of Chrome. \ \
+   Copy the download link for the chrome-driver corresponding to the latest version from the following site and copy [Dockerfile](./Dockerfile)e and change the link in **ADD** in the `install ChromeDriver` section.
 
-    [Index of chrome-driver](https://chromedriver.storage.googleapis.com/index.html)
+   [Index of chrome-driver](https://chromedriver.storage.googleapis.com/index.html)
 
-    ## 📝 設定ファイルの書き方
+   ## 📝 How to write a configuration file
 
-    設定ファイルは、Docker containerと同期しています。\
-    新しく設定を追加する場合は`docker-compose stop`で一時停止してから追加してください。\
-    新しく追加または変更された場合は最初に、各プラットフォームに設定が送信されます。
+   The configuration file is synchronized with the Docker container. \
+   If you want to add a new configuration, please pause it with `docker-compose stop` before adding it. \
+   Any new additions or changes will first have the configuration sent to each platform.
 
-    [設定ファイルの書き方](documents/hou_to_setting.md)
+   [Writing configuration files].(documents/hou_to_setting.md)
 
-    ## 🔰 コーディングルール
+   ## 🔰 Coding Rules
 
-    [Pythonのコーディングルール](documents/python_rule.md)
+   [Python coding rules](documents/python_rule.md)
 
-    ## ⚖ ライセンス
+   ## ⚖ License
 
-    [MIT LICENSE](LICENSE)
-```
+   [MIT LICENSE](LICENSE)
