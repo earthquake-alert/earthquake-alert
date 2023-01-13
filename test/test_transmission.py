@@ -4,7 +4,7 @@
 
 Copyright (c) 2020 Earthquake alert
 '''
-from src.transmission import line, slack, discode
+from src.transmission import line, slack, discord
 
 
 def test_line():
@@ -32,9 +32,9 @@ def test_slack_text():
     slack(token, channel, text, None)
 
 
-def test_discode():
+def test_discord():
     token = ''
     text = 'test test'
     image_path = 'asset/chart.dio.png'
 
-    discode(token, text, image_path)
+    discord(token, text, image_path)

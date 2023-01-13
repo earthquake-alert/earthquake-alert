@@ -1,6 +1,6 @@
 {
     "Your account name": {
-        "platform": 1, // line==1, slack==2, discode==3
+        "platform": 1, // line==1, slack==2, discord==3
         "token": "", // token or webhook url
         "channel": "", // slackのみ
         "seismic_intensity": "", //送信する最大震度 0の場合すべてを送信

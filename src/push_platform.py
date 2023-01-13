@@ -7,9 +7,9 @@ Copyright (c) 2020 Earthquake alert
 from typing import Any
 
 try:
-    from transmission import line, slack, discode, tweet  # pyright: reportMissingImports=false
+    from transmission import line, slack, discord, tweet  # pyright: reportMissingImports=false
 except ModuleNotFoundError:
-    from src.transmission import line, slack, discode, tweet
+    from src.transmission import line, slack, discord, tweet
 
 
 def platform_type_0(user: Any, element: Any) -> None:
@@ -30,7 +30,7 @@ def platform_type_0(user: Any, element: Any) -> None:
         channel = user['channel']
         slack(token, channel, text, None)
     elif platform == 3:
-        discode(token, text, None)
+        discord(token, text, None)
     elif platform == 4:
         consumer_key = user['consumer_key']
         consumer_secret = user['consumer_secret']
@@ -61,9 +61,9 @@ def platform_type_1(user: Any, element: Any) -> None:
         if map_path != []:
             slack(token, channel, '震度分布図', map_path)
     elif platform == 3:
-        discode(token, element['text'], template_path)
+        discord(token, element['text'], template_path)
         if map_path != []:
-            discode(token, '震度分布図', map_path)
+            discord(token, '震度分布図', map_path)
     elif platform == 4:
         consumer_key = user['consumer_key']
         consumer_secret = user['consumer_secret']
