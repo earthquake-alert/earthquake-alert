@@ -41,22 +41,22 @@
 
    ```bash
    # update submodules
-   sh build/init_submodule.sh
+    sh build/init_submodule.sh
 
    # run
-   docker-compose up -d
+    docker-compose up -d
 
    # Check logs
-   docker-compose logs -f
+    docker-compose logs -f
 
    # pause docker-compose
-   docker-compose stop
+    docker-compose stop
 
    # restart
-   docker-compose up -d
+    docker-compose up -d
 
    # stop (also remove containers)
-   docker-compose down
+    docker-compose down
    ````
 
    ## ⚠ About chrome driver
