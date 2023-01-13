@@ -10,7 +10,7 @@
 ![title](../asset/title.png)
 
 ```text
-        ## tl;dr
+    ## tl;dr
 
     - Obtains earthquake information from the Japan Meteorological Agency, National Research Institute for Earth Science and Disaster Prevention, and others, and sends the formatted information to various platforms such as SNS.
     - Create seismic intensity distribution maps.
