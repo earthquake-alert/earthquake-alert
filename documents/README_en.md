@@ -69,8 +69,8 @@
 
     ## 📝 How to write a configuration file
 
-    The configuration file is synchronized with the Docker container. \}
-    If you want to add a new configuration, please pause it with `docker-compose stop` before adding it. \}
+    The configuration file is synchronized with the Docker container. \
+    If you want to add a new configuration, please pause it with `docker-compose stop` before adding it. \
     Any new additions or changes will first have the configuration sent to each platform.
 
     [Writing configuration files].(documents/hou_to_setting.md)
