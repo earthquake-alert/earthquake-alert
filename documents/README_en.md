@@ -63,7 +63,7 @@
     ## ⚠ About chrome driver
 
     Chrome gets the latest version when it is built. Therefore, chrome-driver must always be the right version for the latest version of Chrome. \ \
-    Copy the download link for the chrome-driver corresponding to the latest version from the following site and copy [Dockerfile](. /Dockerfile)e and change the link in **ADD** in the `install ChromeDriver` section.
+    Copy the download link for the chrome-driver corresponding to the latest version from the following site and copy [Dockerfile](./Dockerfile)e and change the link in **ADD** in the `install ChromeDriver` section.
 
     [Index of chrome-driver](https://chromedriver.storage.googleapis.com/index.html)
 
