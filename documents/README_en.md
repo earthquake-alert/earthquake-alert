@@ -1,5 +1,6 @@
 # Earthquake Alert
 
+[![Twitter Follow](https://img.shields.io/twitter/follow/e_alert_?color=26a4f1&label=Twitter%20Follow&style=flat-square)](https://twitter.com/intent/follow?screen_name=e_alert_)
 ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/earthquake-alert/earthquake-alert?style=flat-square)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/earthquake-alert/earthquake-alert?style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/earthquake-alert/earthquake-alert?style=flat-square)
